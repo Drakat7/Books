@@ -3,7 +3,10 @@ package csulb.cecs323.model;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "authoring_entities")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "authoring_entities_type",
+        discriminatorType = DiscriminatorType.INTEGER)
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames =
         {"email"})})
 public class Authoring_entities {
