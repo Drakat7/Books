@@ -23,10 +23,9 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * A simple application to demonstrate how to persist an object in JPA.
- * <p>
- * This is for demonstration and educational purposes only.
- * </p>
+ * CECS 323 Project: JPA - Books
+ * Getting introduced to working with the Java Persistence API (JPA)
+ * By creating a JPA project and data to store books and their related information
  * <p>
  *     Originally provided by Dr. Alvaro Monge of CSULB, and subsequently modified by Dave Brown.
  * </p>
@@ -49,8 +48,7 @@ public class BooksMain {
    private static final Logger LOGGER = Logger.getLogger(BooksMain.class.getName());
 
    /**
-    * The constructor for the CarClub class.  All that it does is stash the provided EntityManager
-    * for use later in the application.
+    * The constructor for the BooksMain class which stores the EntityManager to be used later
     * @param manager    The EntityManager that we will use.
     */
    public BooksMain(EntityManager manager) {
@@ -61,7 +59,7 @@ public class BooksMain {
       LOGGER.fine("Creating EntityManagerFactory and EntityManager");
       EntityManagerFactory factory = Persistence.createEntityManagerFactory("BooksJPA");
       EntityManager manager = factory.createEntityManager();
-      // Create an instance of CarClub and store our new EntityManager as an instance variable.
+      // Create an instance of BooksMain and store our new EntityManager as an instance variable.
       BooksMain carclub = new BooksMain(manager);
 
 
