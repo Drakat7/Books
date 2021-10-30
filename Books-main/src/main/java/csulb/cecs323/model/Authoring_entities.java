@@ -1,6 +1,7 @@
 package csulb.cecs323.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity(name = "authoring_entities")
@@ -25,6 +26,9 @@ public class Authoring_entities {
 
     @Column(nullable = false, length = 64)
     private int year_formed;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "authoring_entities", cascade = CascadeType.PERSIST)
+    private List<Books> books;
 
     public Authoring_entities() {}
 
