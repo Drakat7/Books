@@ -10,6 +10,14 @@ import java.util.Objects;
                 "FROM BOOKS ",
         resultClass = Books.class
 )
+
+@NamedNativeQuery(
+        name = "CheckISBN",
+        query = "SELECT * " +
+                "FROM BOOKS * " +
+                "WHERE ISBN = ?",
+        resultClass = Books.class
+)
 /**
  * A book entity with a publisher and an authoring entity
  */

@@ -23,6 +23,13 @@ import java.util.Objects;
                 "WHERE EMAIL = ? ",
         resultClass = Authoring_entities.class
 )
+@NamedNativeQuery(
+        name = "CheckAuthoringEntitiesName",
+        query = "SELECT * " +
+                "FROM  AUTHORING_ENTITIES " +
+                "WHERE NAME = ? ",
+        resultClass = Authoring_entities.class
+)
 /**
  * A person or group who author books
  */

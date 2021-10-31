@@ -148,12 +148,21 @@ public class BooksMain {
       }
    } // End of createEntity member method
 
+   /**
+    * returns a list of Publishers in our data for viewing or malipulation
+    * @return List<Publishers>
+    */
    public List<Publishers> getPublishers(){
       List<Publishers> publishers = this.entityManager.createNamedQuery("ReturnPublishers",
               Publishers.class).getResultList();
       return publishers;
    }
 
+   /**
+    * Checks to see if a publisher name is already in our database
+    * @param name
+    * @return Publisher
+    */
    public Publishers checkPublisherName(String name){
       List<Publishers> publishers = this.entityManager.createNamedQuery("CheckPublishersName",
               Publishers.class).setParameter(1, name).getResultList();
@@ -164,6 +173,11 @@ public class BooksMain {
       }
    }
 
+   /**
+    * Checks to see if a publisher email is already in our database
+    * @param email
+    * @return Publisher
+    */
    public Publishers checkPublisherEmail(String email){
       List<Publishers> publishers = this.entityManager.createNamedQuery("CheckPublishersEmail",
               Publishers.class).setParameter(1, email).getResultList();
@@ -174,6 +188,12 @@ public class BooksMain {
       }
    }
 
+   /**
+    *
+    * Checks to see if a publisher Phone number is already in our database
+    * @param phone
+    * @return Publisher
+    */
    public Publishers checkPublisherPhone(String phone){
       List<Publishers> publishers = this.entityManager.createNamedQuery("CheckPublishersPhone",
               Publishers.class).setParameter(1, phone).getResultList();
@@ -184,18 +204,32 @@ public class BooksMain {
       }
    }
 
+   /**
+    * Returns a list of books already in our database
+    * @return List<Books>
+    */
    public List<Books> getBooks(){
       List<Books> books = this.entityManager.createNamedQuery("ReturnBooks",
               Books.class).getResultList();
       return books;
    }
 
+   /**
+    * Returns a list of Authoring Entities already in our database
+    * @return List<Authoring_entities>
+    */
    public List<Authoring_entities> getAuthoringEntities(){
       List<Authoring_entities> authoring_entities = this.entityManager.createNamedQuery("ReturnAuthoringEntities",
               Authoring_entities.class).getResultList();
       return authoring_entities;
    }
 
+   /**
+    * Checks to see if there is already an AuthoringEntity with this
+    * email
+    * @param email
+    * @return Authoring_entities
+    */
    public Authoring_entities checkAuthoringEntitiesEmail(String email){
       List<Authoring_entities> authoring_entities = this.entityManager.createNamedQuery("CheckAuthoringEntitiesEmail",
               Authoring_entities.class).setParameter(1, email).getResultList();
@@ -206,12 +240,57 @@ public class BooksMain {
       }
    }
 
+   /**
+    * Checks to see if there is already a book with the same ISBN in our database
+    * @param ISBN
+    * @return Books
+    */
+   public Books checkISBN(String ISBN){
+      List<Books> books = this.entityManager.createNamedQuery("CheckISBN",
+              Books.class).setParameter(1, ISBN).getResultList();
+      if (books.size() == 0){
+         return null;
+      }else{
+         return books.get(0);
+      }
+   }
+
+   /**
+    * Checks to see if there is already an authoring entity with this name
+    * @param name
+    * @return Authoring_entities
+    */
+   public Authoring_entities checkAuthoringEntitiesName(String name){
+      List<Authoring_entities> authoring_entities = this.entityManager.createNamedQuery("CheckAuthoringEntitiesName",
+              Authoring_entitites.class).setParameter(1, email).getResultList();
+      if (authoring_entities.size() == 0) {
+         return null;
+      }else{
+         return authoring_entities.get(0);
+      }
+   }
+
+   /**
+    * Returns a list of Ad hoc team members
+    * @return List<Ad_hoc_teams_member>
+    */
    public List<Ad_hoc_teams_member> getAdHocTeamsMembers(){
       List<Ad_hoc_teams_member> ad_hoc_teams_members = this.entityManager.createNamedQuery("ReturnAdHocTeamsMembers",
               Ad_hoc_teams_member.class).getResultList();
       return ad_hoc_teams_members;
    }
 
+   /**
+    * Where most of logic user input logic is done
+    * Prompts the user for what they wish to view or manipulte in our database
+    * @param authoring_entities     A list of Authoring_entities in our database
+    * @param publishers             A list of Publishers in our database
+    * @param books                  A list of Books in our database
+    * @param ad_hoc_teams_members   A list of Ad_hoc_team_members in our database
+    * @param authoring_types        A list of Authoring_types in our database
+    * @param booksMain              An instance of the Entity manager
+    * @param in                     A Scanner object for userinput
+    */
    static void prompt(List<Authoring_entities> authoring_entities, List<Publishers> publishers, List<Books> books,
                       List<Ad_hoc_teams_member> ad_hoc_teams_members, List<String> authoring_types, BooksMain booksMain, Scanner in){
       int input = 0;
@@ -273,6 +352,7 @@ public class BooksMain {
             addPublisher(publishers, booksMain, in);
             break;
          case 3:
+            addBook(books, booksMain, in);
             break;
          case 4:
             break;
@@ -288,6 +368,13 @@ public class BooksMain {
       }
    }
 
+   /**
+    * A method for adding Authoring_entities to our database
+    * @param authoring_entities
+    * @param authoring_types
+    * @param booksMain
+    * @param in
+    */
    public static void addAuthoringEntity(List<Authoring_entities> authoring_entities, List<String> authoring_types,
                                          BooksMain booksMain, Scanner in){
       String email = "";
@@ -378,6 +465,13 @@ public class BooksMain {
       }
    }
 
+   /**
+    * A method for adding an author to an Ad_hoc_team
+    * @param authoring_entities
+    * @param ad_hoc_teams_members
+    * @param booksMain
+    * @param in
+    */
    public static void addAuthorToTeam(List<Authoring_entities> authoring_entities, List<Ad_hoc_teams_member> ad_hoc_teams_members,
                                       BooksMain booksMain, Scanner in){
       String individual_authors_email;
@@ -386,6 +480,12 @@ public class BooksMain {
    }
 
 
+   /**
+    * For adding a Publisher to the database
+    * @param publishers
+    * @param booksMain
+    * @param in
+    */
    public static void addPublisher(List<Publishers> publishers, BooksMain booksMain, Scanner in){
       String name= "";
       String email = "";
@@ -442,7 +542,104 @@ public class BooksMain {
       }else{
          System.out.println("There is already a publisher with that name. Please try again.");
       }
-   }
+   }//end of addPublisher
+
+   /**
+    * Adds a book to our existing database
+    * making sure not to add the same book twice
+    * making sure the publiser exist
+    * making sure the authoring entity exist
+    * @param books
+    * @param booksMain
+    * @param in
+    */
+   public static void addBook(List<Books> books, BooksMain booksMain, Scanner in){
+     String ISBN = "";
+     String title = "";
+     int yearPublished = "";
+     String authoringEntities = "";
+     String publisher = "";
+     Authoring_entities entity;
+     Publishers thePublisher;
+
+     boolean ISBNSuccess = false;
+     boolean titleSuccess = false;
+     boolean yPSuccess = false;
+     boolean aESuccess = false;
+     boolean publisherSuccess = false;
+
+     while(!ISBNSuccess){
+        System.out.println("Please enter an ISBN (Max length: 17 chars");
+        ISBN = in.nextLine();
+        if (ISBN.length() > 17){
+           System.out.println("ISBN is too long, Please try again");
+        }else{
+           ISBNSuccess = true;
+        }
+     }
+
+     while (!titleSuccess){
+        System.out.println("Please enter a title (Max length: 80 chars");
+        title = in.nextLine();
+        if (title.length() > 80){
+           System.out.println("Title is too long, Please try again");
+        }else{
+           titleSuccess = true;
+        }
+     }
+
+     while(!yPSuccess){
+        System.out.println("Please enter the year of publication (Max length: 4 chars");
+        try {
+           yearPublished = in.nextInt();
+        }catch (InputMismatchException e) {
+           in.nextLine();
+           System.out.println("That's not a number! Try again\n");
+           continue;
+        }
+        if (yearPublished > 9999 || yearPublished < 0){
+           System.out.println("Year is to big or too small");
+        }else{
+           yPSuccess = true;
+        }
+     }
+
+     while(!aESuccess){
+        System.out.println("Please enter the name of the authoring entity (Max length: 80 ");
+        authoringEntities = in.nextLine();
+        if (authoringEntities.length() > 80){
+           System.out.println("Name is too long, Please try again");
+        }else{
+           aESuccess = true;
+        }
+     }
+
+     while(!publisherSuccess){
+        System.out.println("Please enter the name of the publishers name (Max length: 80 ");
+        publisher = in.nextLine();
+        if (publisher.length() > 80){
+           System.out.println("Name is too long, Please try again");
+        }else{
+           publisherSuccess = true;
+        }
+     }
+
+      if(booksMain.checkISBN(ISBN) = null){
+         if(booksMain.checkPublisherName(publisher) != null){
+            if(booksMain.CheckAuthoringEntitiesName(authoringEntities) != null){
+               thePublisher = booksMain.checkPublisherName(publisher);
+               entity = booksMain.checkAuthoringEntitiesName(authoringEntities);
+               books.add(new Books(ISBN, title, yearPublished, entity, thePublisher));
+            }else{
+               System.out.println("There is no authoring entity with that name. Please try again.");
+            }
+         }else{
+            System.out.println("There is no publisher with that name. Please try again.");
+         }
+      }else{
+         System.out.println("There is already a book with that ISBN. Please try again.");
+      }
+   }//end of addBook()
 
 
-} // End of CarClub class
+} // End of BooksMain class
