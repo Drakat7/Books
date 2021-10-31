@@ -23,10 +23,9 @@ import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * A simple application to demonstrate how to persist an object in JPA.
- * <p>
- * This is for demonstration and educational purposes only.
- * </p>
+ * CECS 323 Project: JPA - Books
+ * Getting introduced to working with the Java Persistence API (JPA)
+ * By creating a JPA project and data to store books and their related information
  * <p>
  *     Originally provided by Dr. Alvaro Monge of CSULB, and subsequently modified by Dave Brown.
  * </p>
@@ -49,8 +48,7 @@ public class BooksMain {
    private static final Logger LOGGER = Logger.getLogger(BooksMain.class.getName());
 
    /**
-    * The constructor for the CarClub class.  All that it does is stash the provided EntityManager
-    * for use later in the application.
+    * The constructor for the BooksMain class which stores the EntityManager to be used later
     * @param manager    The EntityManager that we will use.
     */
    public BooksMain(EntityManager manager) {
@@ -61,8 +59,8 @@ public class BooksMain {
       LOGGER.fine("Creating EntityManagerFactory and EntityManager");
       EntityManagerFactory factory = Persistence.createEntityManagerFactory("BooksJPA");
       EntityManager manager = factory.createEntityManager();
-      // Create an instance of CarClub and store our new EntityManager as an instance variable.
-      BooksMain booksMain = new BooksMain(manager);
+      // Create an instance of BooksMain and store our new EntityManager as an instance variable.
+      BooksMain carclub = new BooksMain(manager);
 
 
       // Any changes to the database need to be done within a transaction.
@@ -72,8 +70,17 @@ public class BooksMain {
       EntityTransaction tx = manager.getTransaction();
 
       tx.begin();
+      // List of owners that I want to persist.  I could just as easily done this with the seed-data.sql
+      List <Owners> owners = new ArrayList<Owners>();
+      // Load up my List with the Entities that I want to persist.  Note, this does not put them
+      // into the database.
+      owners.add(new Owners("Reese", "Mike", "714-892-5544"));
+      owners.add(new Owners("Leck", "Carl", "714-321-3729"));
+      owners.add(new Owners("Guitierez", "Luis", "562-982-2899"));
+      // Create the list of owners in the database.
+      carclub.createEntity (owners);
 
-
+      // Commit the changes so that the new data persists and is visible to other users.
       tx.commit();
       LOGGER.fine("End of Transaction");
 
