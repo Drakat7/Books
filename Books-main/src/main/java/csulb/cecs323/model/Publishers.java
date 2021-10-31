@@ -11,6 +11,28 @@ import java.util.Objects;
                 "FROM PUBLISHERS",
         resultClass = Publishers.class
 )
+
+@NamedNativeQuery(
+        name = "CheckPublishersName",
+        query = "SELECT * " +
+                "FROM PUBLISHERS " +
+                "WHERE NAME = ?",
+        resultClass = Publishers.class
+)
+@NamedNativeQuery(
+        name = "CheckPublishersEmail",
+        query = "SELECT * " +
+                "FROM PUBLISHERS " +
+                "WHERE EMAIL = ?",
+        resultClass = Publishers.class
+)
+@NamedNativeQuery(
+        name = "CheckPublishersPhone",
+        query = "SELECT * " +
+                "FROM PUBLISHERS " +
+                "WHERE PHONE = ?",
+        resultClass = Publishers.class
+)
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"name"}),
         @UniqueConstraint(columnNames = {"phone"}), @UniqueConstraint(columnNames = {"email"})})
 /**
@@ -113,7 +135,7 @@ public class Publishers {
     @Override
     public boolean equals(Object o){
         Publishers publisher = (Publishers) o;
-        return this.getName() == publisher.getName();
+        return this.getName().equals(publisher.getName());
     }
 
     @Override
