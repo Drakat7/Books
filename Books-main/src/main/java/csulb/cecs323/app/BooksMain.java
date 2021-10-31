@@ -62,7 +62,7 @@ public class BooksMain {
       EntityManagerFactory factory = Persistence.createEntityManagerFactory("BooksJPA");
       EntityManager manager = factory.createEntityManager();
       // Create an instance of CarClub and store our new EntityManager as an instance variable.
-      BooksMain carclub = new BooksMain(manager);
+      BooksMain booksMain = new BooksMain(manager);
 
 
       // Any changes to the database need to be done within a transaction.
@@ -72,17 +72,8 @@ public class BooksMain {
       EntityTransaction tx = manager.getTransaction();
 
       tx.begin();
-      // List of owners that I want to persist.  I could just as easily done this with the seed-data.sql
-      List <Owners> owners = new ArrayList<Owners>();
-      // Load up my List with the Entities that I want to persist.  Note, this does not put them
-      // into the database.
-      owners.add(new Owners("Reese", "Mike", "714-892-5544"));
-      owners.add(new Owners("Leck", "Carl", "714-321-3729"));
-      owners.add(new Owners("Guitierez", "Luis", "562-982-2899"));
-      // Create the list of owners in the database.
-      carclub.createEntity (owners);
 
-      // Commit the changes so that the new data persists and is visible to other users.
+
       tx.commit();
       LOGGER.fine("End of Transaction");
 
