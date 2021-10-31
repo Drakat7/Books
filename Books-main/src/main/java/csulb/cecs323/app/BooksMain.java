@@ -641,6 +641,16 @@ public class BooksMain {
       }
    }//end of addBook()
 
+   /**
+    * Shows information about publishers, Books, or Writing Group
+    * For publishers it shows the name
+    * For Books it shows its ISBN and title
+    * For Writing Group it shows authoring entity type and Email
+    * @param publishers
+    * @param booksMain
+    * @param authoring_entities
+    * @param in
+    */
    public void listInfo(List<Publishers> publishers, BooksMain booksMain, List<Authoring_entities> authoring_entities, Scanner in){
       boolean truth = false;
       System.out.println("Choose which of the following information to view: ");
