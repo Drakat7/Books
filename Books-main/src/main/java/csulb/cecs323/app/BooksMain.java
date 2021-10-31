@@ -13,13 +13,18 @@
 package csulb.cecs323.app;
 
 // Import all of the entity classes that we have written for this application.
+import csulb.cecs323.model.*;
+
+import java.io.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Logger;
 
 /**
@@ -60,7 +65,7 @@ public class BooksMain {
       EntityManagerFactory factory = Persistence.createEntityManagerFactory("BooksJPA");
       EntityManager manager = factory.createEntityManager();
       // Create an instance of BooksMain and store our new EntityManager as an instance variable.
-      BooksMain carclub = new BooksMain(manager);
+      BooksMain booksMain = new BooksMain(manager);
 
 
       // Any changes to the database need to be done within a transaction.
@@ -70,16 +75,30 @@ public class BooksMain {
       EntityTransaction tx = manager.getTransaction();
 
       tx.begin();
-      // List of owners that I want to persist.  I could just as easily done this with the seed-data.sql
-      List <Owners> owners = new ArrayList<Owners>();
-      // Load up my List with the Entities that I want to persist.  Note, this does not put them
-      // into the database.
-      owners.add(new Owners("Reese", "Mike", "714-892-5544"));
-      owners.add(new Owners("Leck", "Carl", "714-321-3729"));
-      owners.add(new Owners("Guitierez", "Luis", "562-982-2899"));
-      // Create the list of owners in the database.
-      carclub.createEntity (owners);
+      Scanner in = new Scanner(System.in);
+      List<Publishers> publishers = new ArrayList<>();
+      publishers.add(new Publishers("Harry", "a@.com", "222-222-2222"));
+      booksMain.createEntity(publishers);
+      //publishers = booksMain.getPublishers();
+      //addPublisher(publishers, in);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      in.close();
       // Commit the changes so that the new data persists and is visible to other users.
       tx.commit();
       LOGGER.fine("End of Transaction");
@@ -106,5 +125,78 @@ public class BooksMain {
          LOGGER.info("Persisted object after flush (non-null id): " + next);
       }
    } // End of createEntity member method
+
+   public List<Publishers> getPublishers(){
+      List<Publishers> publishers = this.entityManager.createNamedQuery("ReturnPublishers",
+              Publishers.class).getResultList();
+      return publishers;
+   }
+
+   public List<Books> getBooks(){
+      List<Books> books = this.entityManager.createNamedQuery("ReturnBooks",
+              Books.class).getResultList();
+      return books;
+   }
+
+   public List<Authoring_entities> getAuthoringEntities(){
+      List<Authoring_entities> authoring_entities = this.entityManager.createNamedQuery("ReturnAuthoringEntities",
+              Authoring_entities.class).getResultList();
+      return authoring_entities;
+   }
+
+   public List<Ad_hoc_teams_member> getAdHocTeamsMembers(){
+      List<Ad_hoc_teams_member> ad_hoc_teams_members = this.entityManager.createNamedQuery("ReturnAdHocTeamsMembers",
+              Ad_hoc_teams_member.class).getResultList();
+      return ad_hoc_teams_members;
+   }
+
+   public static void addPublisher(List<Publishers> publishers, Scanner in){
+      String name= "";
+      String email = "";
+      String phone = "";
+      boolean nameSuccess = false;
+      boolean emailSuccess = false;
+      int phoneSuccess = 0;
+      while(!nameSuccess){
+         System.out.println("Please enter the publishers name (Max length: 80 chars): \n");
+         name = in.nextLine();
+         if(name.length() > 80){
+            System.out.println("That name is too long. Please try again.");
+         }else{
+            nameSuccess = true;
+         }
+      }
+      while(!emailSuccess){
+         System.out.println("Please enter the publishers email (Max length: 80 chars:");
+         email = in.nextLine();
+         if(email.length() > 80){
+            System.out.println("That email is too long. Please try again.");
+         }else{
+            emailSuccess = true;
+         }
+      }
+      while (phoneSuccess!=2) {
+         phoneSuccess = 0;
+         System.out.println("Please enter the publishers phone number (Max length: 24 chars:");
+         phone = in.nextLine();
+         if (phone.length() > 24) {
+            System.out.println("That phone number is too long. Please try again.");
+         } else {
+            phoneSuccess++;
+         }
+         if (phone.matches(".*[a-z]*.")) {
+            System.out.println("That is not a valid phone number. Letters are not allowed. Please try again.");
+         } else {
+            phoneSuccess++;
+         }
+      }
+      Publishers newPublisher = new Publishers(name, email, phone);
+      if(!publishers.contains(newPublisher)){
+         publishers.add(newPublisher);
+      }else{
+         System.out.println("There is already a publisher with that information.");
+      }
+   }
+
 
 } // End of CarClub class

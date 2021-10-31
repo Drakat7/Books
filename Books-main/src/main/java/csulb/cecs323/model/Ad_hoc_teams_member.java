@@ -4,20 +4,26 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@NamedNativeQuery(
+        name = "ReturnAdHocTeamsMembers",
+        query = "SELECT * " +
+                "FROM AD_HOC_TEAMS_MEMBER ",
+        resultClass = Ad_hoc_teams_member.class
+)
 /**
  *A person who is a member of an Ad Hoc team
- * EXTENDS Authoring-entities
  */
-@DiscriminatorValue("1")
-public class Ad_hoc_teams_member extends Authoring_entities {
+public class Ad_hoc_teams_member{
 
     @Id
-    @Column(nullable = false, length = 30)
-    private String individual_authors_email;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "individual_authors_email", referencedColumnName = "email", nullable = false)
+    private Individual_author individual_authors;
 
     @Id
-    @Column(nullable = false, length = 30)
-    private String ad_hoc_teams_email;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ad_hoc_teams_email", referencedColumnName = "email", nullable = false)
+    private Ad_hoc_team ad_hoc_teams;
 
     /**
      * Default constructor required by JPA
@@ -25,52 +31,29 @@ public class Ad_hoc_teams_member extends Authoring_entities {
     public Ad_hoc_teams_member() {}
 
     /**
-     * A parameterized constructor to create the ad hoc member
-     * @param email                     new member's email address
-     * @param authoring_entity_type     what type of author is this member
-     * @param name                      members name
-     * @param head_writer               who's the head writer of their book
-     * @param year_formed               what year did this entity begin
-     * @param individual_authors_email  email's of every individual in a writing group member
-     * @param ad_hoc_teams_email        email of an ad hoc team member
+     * A parameterized constructor to create the ad hoc team member
+     * @param individual_authors  an individual author
+     * @param ad_hoc_teams        an ad hoc team
      */
-    public Ad_hoc_teams_member(String email, String authoring_entity_type, String name, String head_writer,
-                               int year_formed, String individual_authors_email, String ad_hoc_teams_email){
-        super(email, authoring_entity_type, name, head_writer, year_formed);
-        this.individual_authors_email = individual_authors_email;
-        this.ad_hoc_teams_email = ad_hoc_teams_email;
+    public Ad_hoc_teams_member(Individual_author individual_authors, Ad_hoc_team ad_hoc_teams){
+        this.individual_authors = individual_authors;
+        this.ad_hoc_teams = ad_hoc_teams;
     }
 
-    /**
-     * getter method for individuals email
-     * @return String  individual_authors_email
-     */
-    public String getIndividual_authors_email() {
-        return individual_authors_email;
+    public Individual_author getIndividual_authors() {
+        return individual_authors;
     }
 
-    /**
-     * setter method for an individual_authors_email
-     * @param individual_authors_email
-     */
-    public void setIndividual_authors_email(String individual_authors_email) {
-        this.individual_authors_email = individual_authors_email;
+    public void setIndividual_authors(Individual_author individual_authors) {
+        this.individual_authors = individual_authors;
     }
 
-    /**
-     * getter method for an ad_hoc_teams_email
-     *  @return String  ad_hoc_teams_email
-     */
-    public String getAd_hoc_teams_email() {
-        return ad_hoc_teams_email;
+    public Ad_hoc_team getAd_hoc_teams() {
+        return ad_hoc_teams;
     }
 
-    /**
-     * setter method for an ad_hoc_teams_email
-     * @param ad_hoc_teams_email
-     */
-    public void setAd_hoc_teams_email(String ad_hoc_teams_email) {
-        this.ad_hoc_teams_email = ad_hoc_teams_email;
+    public void setAd_hoc_teams(Ad_hoc_team ad_hoc_teams) {
+        this.ad_hoc_teams = ad_hoc_teams;
     }
 
     /**
@@ -79,10 +62,8 @@ public class Ad_hoc_teams_member extends Authoring_entities {
      */
     @Override
     public String toString(){
-        return "Authoring Entity Email: " + this.getEmail() + ", Type: " + this.getAuthoring_entity_type() + ", Name: " +
-                this.getName() + ", Head Writer: " + this.getHead_writer() + ", Year Formed: " + this.getYear_formed() +
-                ", Individual Authors Email: " + this.individual_authors_email + ", Ad Hoc Teams Email: " +
-                this.ad_hoc_teams_email;
+        return "Authors Email: " + this.individual_authors.getEmail() + ", Ad Hoc Teams Email: " +
+                this.ad_hoc_teams.getEmail();
     }
 
     /**
@@ -93,13 +74,12 @@ public class Ad_hoc_teams_member extends Authoring_entities {
     @Override
     public boolean equals(Object o){
         Ad_hoc_teams_member ad_hoc_teams_member = (Ad_hoc_teams_member) o;
-        return (this.getIndividual_authors_email() == ad_hoc_teams_member.getIndividual_authors_email() &&
-                this.getAd_hoc_teams_email() == ad_hoc_teams_member.getAd_hoc_teams_email());
+        return (this.getIndividual_authors() == ad_hoc_teams_member.getIndividual_authors() &&
+                this.getAd_hoc_teams() == ad_hoc_teams_member.getAd_hoc_teams());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getEmail(), this.getAuthoring_entity_type(), this.getEmail(), this.getHead_writer(),
-                this.getYear_formed(), this.getIndividual_authors_email(), this.getAd_hoc_teams_email());
+        return Objects.hash(this.getIndividual_authors(), this.getAd_hoc_teams());
     }
 }

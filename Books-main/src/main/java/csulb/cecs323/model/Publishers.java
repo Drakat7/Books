@@ -5,9 +5,14 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@NamedNativeQuery(
+        name = "ReturnPublishers",
+        query = "SELECT * " +
+                "FROM PUBLISHERS",
+        resultClass = Publishers.class
+)
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"name"}),
         @UniqueConstraint(columnNames = {"phone"}), @UniqueConstraint(columnNames = {"email"})})
-
 /**
  * An entity which could release many or no books
  */
@@ -17,11 +22,11 @@ public class Publishers {
     @Column(nullable = false, length = 80)
     private String name;
 
-    @Column(nullable = false, length = 80)
-    private String phone;
-
     @Column(nullable = false, length = 24)
     private String email;
+
+    @Column(nullable = false, length = 80)
+    private String phone;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "publishers", cascade = CascadeType.PERSIST)
     private List<Books> books;
@@ -34,13 +39,13 @@ public class Publishers {
     /**
      * Parameterized constructor for the Publishers entity
      * @param name     Publishers name
-     * @param phone    Publishers phone number
      * @param email    Publishers email address
+     * @param phone    Publishers phone number
      */
-    public Publishers(String name, String phone, String email){
+    public Publishers(String name, String email, String phone){
         this.name = name;
-        this.phone = phone;
-        this.email = email;
+        this.phone = email;
+        this.email = phone;
     }
 
     /**
@@ -60,22 +65,6 @@ public class Publishers {
     }
 
     /**
-     * getter for the publishers phone number
-     * @return String   phone
-     */
-    public String getPhone() {
-        return phone;
-    }
-
-    /**
-     * setter for the publishers phone number
-     * @param phone
-     */
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    /**
      * getter for the publishers email address
      * @return String email
      */
@@ -92,13 +81,28 @@ public class Publishers {
     }
 
     /**
+     * getter for the publishers phone number
+     * @return String   phone
+     */
+    public String getPhone() {
+        return phone;
+    }
+
+    /**
+     * setter for the publishers phone number
+     * @param phone
+     */
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    /**
      * toString for the publishers entity
      * @return String   publishers info
      */
     @Override
     public String toString(){
-        return "Publisher Name: " + this.name + ", Phone: " + this.phone + ", Email: " +
-                this.email;
+        return "Publisher Name: " + this.name +", Email: " + this.email + ", Phone: " + this.phone;
     }
 
     /**
@@ -114,6 +118,6 @@ public class Publishers {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.getName(), this.getPhone(), this.getEmail());
+        return Objects.hash(this.getName(), this.getEmail(), this.getPhone());
     }
 }

@@ -4,6 +4,12 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@NamedNativeQuery(
+        name = "ReturnBooks",
+        query = "SELECT * " +
+                "FROM BOOKS ",
+        resultClass = Books.class
+)
 /**
  * A book entity with a publisher and an authoring entity
  */
@@ -134,7 +140,7 @@ public class Books {
     @Override
     public String toString(){
         return "ISBN: " + this.ISBN + ", Title: " + this.title + ", Year Published: " +
-                this.year_published;
+                this.year_published + ", Authors Email: " + this.authoring_entities.getEmail() + ", Publisher: " + this.publishers.getName();
     }
 
     /**

@@ -6,10 +6,16 @@ import java.util.Objects;
 
 @Entity(name = "authoring_entities")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "authoring_entities_type",
-        discriminatorType = DiscriminatorType.INTEGER)
+@DiscriminatorColumn(name = "authoring_entity_type",
+        discriminatorType = DiscriminatorType.STRING)
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames =
         {"email"})})
+@NamedNativeQuery(
+        name = "ReturnAuthoringEntities",
+        query = "SELECT * " +
+                "FROM AUTHORING_ENTITIES ",
+        resultClass = Authoring_entities.class
+)
 /**
  * A person or group who author books
  */
@@ -24,10 +30,10 @@ public class Authoring_entities {
     @Column(nullable = false, length = 80)
     private String name;
 
-    @Column(nullable = false, length = 80)
+    @Column(length = 80)
     private String head_writer;
 
-    @Column(nullable = false, length = 64)
+    @Column(length = 64)
     private int year_formed;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "authoring_entities", cascade = CascadeType.PERSIST)
@@ -37,6 +43,18 @@ public class Authoring_entities {
      * default constructor
      */
     public Authoring_entities() {}
+
+    /**
+     * Parameterized constructor for the Authoring_entities
+     * @param email                     new member's email address
+     * @param authoring_entity_type     what type of author is this member
+     * @param name                      members name
+     */
+    public Authoring_entities(String email, String authoring_entity_type, String name) {
+        this.email = email;
+        this.authoring_entity_type = authoring_entity_type;
+        this.name = name;
+    }
 
     /**
      * Parameterized constructor for the Authoring_entities

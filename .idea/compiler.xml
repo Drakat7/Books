@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="cecs323-jpa-CarClub" />
+        <module name="BooksMain" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="cecs323-jpa-CarClub" target="11" />
+      <module name="BooksMain" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
