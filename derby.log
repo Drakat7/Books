@@ -1,10 +1,10 @@
 ----------------------------------------------------------------
-Sun Oct 31 05:43:39 UTC 2021:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-017c-d4df-f03e-000007506588 
-on database directory C:\Users\Matthew Chen\School Stuff\Fall 2021\CECS 323\Group Hwks\Books\database\BooksJPA with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@7aec35a 
-Loaded from file:/C:/Users/Matthew%20Chen/AppData/Roaming/JetBrains/IntelliJIdea2021.2/jdbc-drivers/Apache%20Derby/10.15.2.0/derby-10.15.2.0.jar
-java.vendor=JetBrains s.r.o.
-java.runtime.version=11.0.12+7-b1504.28
+Sat Oct 30 22:46:18 PDT 2021:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-017c-d4e2-60c4-00000cb30658 
+on database directory C:\Users\Matthew Chen\School Stuff\Fall 2021\CECS 323\Group Hwks\Books\database\BooksJPA with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@1d44bcfa 
+Loaded from file:/C:/Users/Matthew%20Chen/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+java.vendor=Oracle Corporation
+java.runtime.version=17+35-LTS-2724
 user.dir=C:\Users\Matthew Chen\School Stuff\Fall 2021\CECS 323\Group Hwks\Books
 os.name=Windows 10
 os.arch=amd64

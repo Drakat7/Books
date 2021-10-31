@@ -97,7 +97,7 @@ public class BooksMain {
          prompt(authoring_entities, publishers, books, ad_hoc_teams_members, authoring_types, booksMain,in);
          System.out.println("Would you like to perform another task? (Y/N)");
          choice = in.nextLine();
-         if(choice.equalsIgnoreCase("y")){
+         if(choice.equalsIgnoreCase("n")){
             finished = true;
          }
       }
