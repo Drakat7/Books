@@ -44,8 +44,8 @@ public class Publishers {
      */
     public Publishers(String name, String email, String phone){
         this.name = name;
-        this.phone = email;
-        this.email = phone;
+        this.email = email;
+        this.phone = phone;
     }
 
     /**

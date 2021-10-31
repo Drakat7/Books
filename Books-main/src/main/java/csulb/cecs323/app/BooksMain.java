@@ -77,11 +77,11 @@ public class BooksMain {
       tx.begin();
       Scanner in = new Scanner(System.in);
       List<Publishers> publishers = new ArrayList<>();
-      publishers.add(new Publishers("Harry", "a@.com", "222-222-2222"));
+      //publishers.add(new Publishers("Harry", "a@.com", "222-222-2222"));
+      //booksMain.createEntity(publishers);
+      publishers = booksMain.getPublishers();
+      addPublisher(publishers, in);
       booksMain.createEntity(publishers);
-      //publishers = booksMain.getPublishers();
-      //addPublisher(publishers, in);
-
 
 
 
