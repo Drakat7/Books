@@ -641,5 +641,47 @@ public class BooksMain {
       }
    }//end of addBook()
 
+   public void listInfo(List<Publishers> publishers, BooksMain booksMain, List<Authoring_entities> authoring_entities, Scanner in){
+      boolean truth = false;
+      System.out.println("Choose which of the following information to view: ");
+
+      while(!truth){
+         System.out.println(" 1) Publisher \n 2) Book \n 3) Writing Group");
+         int input = in.nextInt();
+         if (input < 1 || input > 3) {
+            System.out.println(" That is not a valid choice. Please choose again"); 
+         }else{
+            truth = true;
+            switch(input) {
+               case 1: {
+                  for (int i = 0; i < publishers.size(); i++ ){
+                     System.out.println(i + ". " + publishers.get(i).getName());
+                  }
+                  System.out.println("Please select an option: ");
+                  int pubInp = in.nextInt();
+                  in.nextLine();
+                  System.out.println(publishers.get(pubInp).toString());
+                  break;
+               }
+               case 2: {
+                  int i = 0;
+                  for (Books b : getBooks()){
+                     System.out.println(i + ". " + b.getISBN() + " " + b.getTitle());
+                     ++i;
+                  }
+                  System.out.println("Please select an option: ");
+                  int bookInp = in.nextInt();
+                  in.nextLine();
+                  System.out.println(getBooks().get(bookInp).toString());
+                  break;
+               }
+               // TODO: Access to Authoring entities information
+               case 3:{
+                  int i = 0;
+               }
+            }
+         }
+      }
+   } // end of listInfo()
 
 } // End of BooksMain class
