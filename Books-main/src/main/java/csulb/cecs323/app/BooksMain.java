@@ -311,7 +311,7 @@ public class BooksMain {
          try{
             input = in.nextInt();
             in.nextLine();
-            if(input > 0 && input <= 7)
+            if(input > 0 && input <= 8)
             {
                valid = true;
             }else{
@@ -906,46 +906,16 @@ public class BooksMain {
    }
 
    public static void listPrimaryKeys(List<Authoring_entities> authoring_entities, List<Publishers> publishers, List<Books> books, BooksMain booksMain, Scanner in){
-      boolean valid = false;
-      int input = 0;
-      List<Authoring_entities> writing_groups;
-      while(!valid){
-         System.out.println("(1) List Publishers Primary Keys");
-         System.out.println("(2) List Books Primary Keys");
-         System.out.println("(3) List Authoring Entities Primary Keys");
-         try{
-            input = in.nextInt();
-            in.nextLine();
-            if(input > 0 && input <= 3){
-               valid = true;
-            }else{
-               System.out.println("That is not a valid input. Please try again.");
-            }
-         }catch (InputMismatchException e){
-            System.out.println("That is not a valid input. Please try again.");
-            in.nextLine();
-         }
+      int count = 1;
+      for (int i=0; i<publishers.size(); i++){
+         System.out.println("(" + (count++) + ") Publisher: " + publishers.get(i).getName());
       }
-
-      switch(input){
-         case 1:
-            for (int i=0; i<publishers.size(); i++){
-               System.out.println("(" + (i+1) + ") " + publishers.get(i).getName());
-            }
-            break;
-         case 2:
-            for(int j=0; j<books.size(); j++){
-               System.out.println("(" + (j+1) + ") " + books.get(j).getISBN() + ", " + books.get(j).getTitle());
-            }
-            break;
-         case 3:
-            for(int k=0; k<authoring_entities.size(); k++){
-               System.out.println("(" + (k+1) + ") " + authoring_entities.get(k).getEmail() + ", " + authoring_entities.get(k).getAuthoring_entity_type());
-            }
-            break;
-         default:
-            System.out.println("A critical error has occurred, shutting down.");
-            System.exit(1);
+      for(int j=0; j<books.size(); j++){
+         System.out.println("(" + (count++) + ") Book: " + books.get(j).getISBN() + ", " + books.get(j).getTitle());
+      }
+      for(int k=0; k<authoring_entities.size(); k++)
+      {
+         System.out.println("(" + (count++) + ") Authoring Entity: " + authoring_entities.get(k).getEmail() + ", " + authoring_entities.get(k).getAuthoring_entity_type());
       }
    }
 
