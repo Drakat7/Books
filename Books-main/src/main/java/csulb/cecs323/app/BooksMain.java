@@ -904,16 +904,6 @@ public class BooksMain {
     * @param in   A Scanner object for user input  
     * */
    public static void deleteBook(List<Books> books, BooksMain booksMain, Scanner in){
-      /** The Internation Standard Book Number that is used to uniquely identify a book */
-      String ISBN = "";
-      /** The title of the book */
-      String title = "";
-      /** The year the book is published */
-      int year_published = -1;
-      /** The authoring entity's name */
-      String authoring_entity_name = "";
-      /** The publisher's name */
-      String publisher_name = "";
       /** Check for a valid input of information */
       boolean valid = false;
       /** Number that the user inputs */
