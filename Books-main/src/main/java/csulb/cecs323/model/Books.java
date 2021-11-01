@@ -18,6 +18,8 @@ import java.util.Objects;
                 "WHERE ISBN = ?",
         resultClass = Books.class
 )
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames =
+        {"title", "publisher_name"}), @UniqueConstraint(columnNames = {"title", "authoring_entity_name"})})
 /**
  * A book entity with a publisher and an authoring entity
  */
