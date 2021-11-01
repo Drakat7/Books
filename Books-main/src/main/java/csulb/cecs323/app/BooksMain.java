@@ -157,7 +157,8 @@ public class BooksMain {
               Publishers.class).setParameter(1, name).getResultList();
       if (publishers.size() == 0) {
          return null;
-      } else {
+      } 
+      else {
          return publishers.get(0);
       }
    }
@@ -172,7 +173,8 @@ public class BooksMain {
               Publishers.class).setParameter(1, email).getResultList();
       if (publishers.size() == 0) {
          return null;
-      } else {
+      } 
+      else {
          return publishers.get(0);
       }
    }
@@ -187,7 +189,8 @@ public class BooksMain {
               Publishers.class).setParameter(1, phone).getResultList();
       if (publishers.size() == 0) {
          return null;
-      } else {
+      } 
+      else {
          return publishers.get(0);
       }
    }
@@ -280,7 +283,8 @@ public class BooksMain {
               Authoring_entities.class).setParameter(1, email).getResultList();
       if (authoring_entities.size() == 0) {
          return null;
-      } else {
+      } 
+      else {
          return authoring_entities.get(0);
       }
    }
@@ -296,7 +300,8 @@ public class BooksMain {
               Authoring_entities.class).setParameter(1, email).setParameter(2, type).getResultList();
       if (authoring_entities.size() == 0) {
          return null;
-      } else {
+      } 
+      else {
          return authoring_entities.get(0);
       }
    }
@@ -323,7 +328,8 @@ public class BooksMain {
                       2, ad_hoc_teams_email).getResultList();
       if (ad_hoc_teams_members.size() == 0) {
          return null;
-      } else {
+      } 
+      else {
          return ad_hoc_teams_members.get(0);
       }
    }
@@ -356,15 +362,15 @@ public class BooksMain {
          try{
             input = in.nextInt();
             in.nextLine();
-            if(input > 0 && input <= 8)
-            {
+            if(input > 0 && input <= 8) {
                valid = true;
-            }else{
+            }
+            else {
                System.out.println("That is not a valid input. Please try again.");
             }
-         }catch(InputMismatchException e){
+         }
+         catch(InputMismatchException e) {
             System.out.println("That is not a valid input. Please try again.");
-            in.nextLine();
          }
       }
       switch(input){
@@ -376,13 +382,14 @@ public class BooksMain {
                try{
                   input = in.nextInt();
                   in.nextLine();
-                  if(input > 0 && input <= 2)
-                  {
+                  if(input > 0 && input <= 2) {
                      valid = true;
-                  }else{
+                  }
+                  else{
                      System.out.println("That is not a valid input. Please try again.");
                   }
-               }catch(InputMismatchException e){
+               }
+               catch(InputMismatchException e){
                   System.out.println("That is not a valid input. Please try again.");
                }
             }
@@ -475,7 +482,8 @@ public class BooksMain {
          name = in.nextLine();
          if(name.length() > 80){
             System.out.println("That name is too long. Please try again.");
-         }else{
+         }
+         else{
             nameSuccess = true;
          }
       }
@@ -483,9 +491,10 @@ public class BooksMain {
          while(!headWriterSuccess){
             System.out.println("Please enter the head writers name (Max length: 80 chars): \n");
             head_writer = in.nextLine();
-            if(head_writer.length() > 80){
+            if(head_writer.length() > 80) {
                System.out.println("That name is too long. Please try again.");
-            }else{
+            }
+            else{
                headWriterSuccess = true;
             }
          }
@@ -496,10 +505,9 @@ public class BooksMain {
                in.nextLine();
                if(year_formed > 0){
                   yearFormedSuccess = true;
-               }else{
-                  System.out.println("That is not a valid year. Please try again.");
                }
-            }catch (InputMismatchException e){
+            }
+            catch (InputMismatchException e) {
                System.out.println("That is not a valid year. Please try again.");
                in.nextLine();
             }
@@ -520,7 +528,8 @@ public class BooksMain {
                System.out.println("A critical error has occurred, shutting down.");
                System.exit(1);
          }
-      }else{
+      }
+      else {
          System.out.println("There is already an authoring entity with that email. Please try again.");
       }
    }
@@ -546,38 +555,48 @@ public class BooksMain {
       System.out.println("******************************************************************************************");
       listAdHocTeamsMembers(ad_hoc_teams_members);
       System.out.println("******************************************************************************************");
-      while(!individualAuthorsEmailSuccess){
+      while(!individualAuthorsEmailSuccess) {
          System.out.println("Please enter the individual authors email (Max length: 30 chars):");
          individual_authors_email = in.nextLine();
-         if(individual_authors_email.length() > 30){
+         if(individual_authors_email.length() > 30) {
             System.out.println("That email is too long. Please try again.");
-         }else{
+         }
+         else {
             individualAuthorsEmailSuccess = true;
          }
       }
       while(!adHocTeamsEmailSuccess){
          System.out.println("Please enter the ad hoc teams email (Max length: 30 chars):");
          ad_hoc_teams_email = in.nextLine();
-         if(ad_hoc_teams_email.length() > 30){
+         if(ad_hoc_teams_email.length() > 30) {
             System.out.println("That email is too long. Please try again.");
-         }else{
+         }
+         else {
             adHocTeamsEmailSuccess = true;
          }
       }
       individual_author = booksMain.checkAuthoringEntitiesType(individual_authors_email, authoring_types.get(1));
-      ad_hoc_team = booksMain.checkAuthoringEntitiesType(ad_hoc_teams_email, authoring_types.get(2));
       if(authoring_entities.contains(individual_author)){
-         if(authoring_entities.contains(ad_hoc_team)){
-            if(!ad_hoc_teams_members.contains(booksMain.getAdHocTeamsMember(individual_authors_email, ad_hoc_teams_email))){
-               ad_hoc_teams_members.add(new Ad_hoc_teams_member(individual_author, ad_hoc_team));
-            }else{
-               System.out.println("That Individual Author is already on that Ad Hoc Team. Please try again.");
-            }
-         }else{
-            System.out.println("There is no Ad Hoc Team with that email. Please try again");
-         }
-      }else{
+         successes++;
+      }
+      else {
          System.out.println("There is no Individual Author with that email. Please try again.");
+      }
+      ad_hoc_team = booksMain.checkAuthoringEntitiesType(ad_hoc_teams_email, authoring_types.get(2));
+      if(authoring_entities.contains(ad_hoc_team)){
+         successes++;
+      }
+      else {
+         System.out.println("There is no Ad Hoc Team with that email. Please try again");
+      }
+      System.out.println(ad_hoc_teams_members.contains(booksMain.getAdHocTeamsMember(individual_authors_email, ad_hoc_teams_email)));
+      if(successes == 2){
+         if(!ad_hoc_teams_members.contains(booksMain.getAdHocTeamsMember(individual_authors_email, ad_hoc_teams_email))){
+               ad_hoc_teams_members.add(new Ad_hoc_teams_member(individual_author, ad_hoc_team));
+         }
+         else {
+            System.out.println("That Individual Author is already on that Ad Hoc Team. Please try again.");
+         }
       }
    }
 
@@ -601,18 +620,20 @@ public class BooksMain {
       while(!nameSuccess){
          System.out.println("Please enter the publishers name (Max length: 80 chars):");
          name = in.nextLine();
-         if(name.length() > 80){
+         if(name.length() > 80) {
             System.out.println("That name is too long. Please try again.");
-         }else{
+         }
+         else {
             nameSuccess = true;
          }
       }
-      while(!emailSuccess){
+      while(!emailSuccess) {
          System.out.println("Please enter the publishers email (Max length: 80 chars:");
          email = in.nextLine();
          if(email.length() > 80){
             System.out.println("That email is too long. Please try again.");
-         }else{
+         }
+         else {
             emailSuccess = true;
          }
       }
@@ -622,12 +643,14 @@ public class BooksMain {
          phone = in.nextLine();
          if (phone.length() > 24) {
             System.out.println("That phone number is too long. Please try again.");
-         } else {
+         } 
+         else {
             phoneSuccess++;
          }
          if (phone.matches(".*[a-z].*")) {
             System.out.println("That is not a valid phone number. Letters are not allowed. Please try again.");
-         }else {
+         }
+         else {
             phoneSuccess++;
          }
       }
@@ -635,13 +658,16 @@ public class BooksMain {
          if(!publishers.contains(booksMain.checkPublisherEmail(email))){
             if(!publishers.contains(booksMain.checkPublisherPhone(phone))){
                publishers.add(new Publishers(name, email, phone));
-            }else{
+            }
+            else {
                System.out.println("There is already a publisher with that phone number. Please try again.");
             }
-         }else{
+         }
+         else {
             System.out.println("There is already a publisher with that email. Please try again.");
          }
-      }else{
+      }
+      else {
          System.out.println("There is already a publisher with that name. Please try again.");
       }
    }//end of addPublisher
@@ -669,7 +695,6 @@ public class BooksMain {
      boolean publisherNameSuccess = false;
      Authoring_entities author;
      Publishers publisher;
-     Books newBook;
 
      System.out.println("******************************************************************************************");
      listBooks(books);
@@ -679,7 +704,8 @@ public class BooksMain {
         ISBN = in.nextLine();
         if (ISBN.length() > 17){
            System.out.println("ISBN is too long, Please try again");
-        }else{
+        }
+        else{
            ISBNSuccess = true;
         }
      }
@@ -689,7 +715,8 @@ public class BooksMain {
         title = in.nextLine();
         if (title.length() > 80){
            System.out.println("Title is too long, Please try again");
-        }else{
+        }
+        else{
            titleSuccess = true;
         }
      }
@@ -703,7 +730,8 @@ public class BooksMain {
               System.out.println("That is not a valid year. Please try again.");
            }
            yearPublishedSuccess = true;
-        }catch (InputMismatchException e) {
+        }
+        catch (InputMismatchException e) {
            in.nextLine();
            System.out.println("That's not a number! Try again\n");
         }
@@ -714,7 +742,8 @@ public class BooksMain {
         authoringEntityName = in.nextLine();
         if (authoringEntityName.length() > 80){
            System.out.println("That name is too long. Please try again");
-        }else{
+        }
+        else{
            authoringEntityNameSuccess = true;
         }
      }
@@ -724,36 +753,28 @@ public class BooksMain {
         publisherName = in.nextLine();
         if (publisherName.length() > 80){
            System.out.println("Name is too long, Please try again");
-        }else{
+        }
+        else{
            publisherNameSuccess = true;
         }
      }
 
-     newBook = booksMain.checkISBN(ISBN);
-      if(!books.contains(newBook)){
-         newBook = booksMain.checkTitleAndPublisher(title, publisherName);
-         if(!books.contains(newBook)){
-            newBook = booksMain.checkTitleAndAuthor(title, authoringEntityName);
-            if(!books.contains(newBook)){
-
-               author = booksMain.checkAuthoringEntitiesEmail(authoringEntityName);
-               if(authoring_entities.contains(author)){
-                  publisher = booksMain.checkPublisherName(publisherName);
-                  if(publishers.contains(publisher)){
-                     books.add(new Books(ISBN, title, yearPublished, author, publisher));
-                  }else{
-                     System.out.println("There is no Publisher with that name. Please try again.");
-                  }
-               }else{
-                  System.out.println("There is no Authoring Entity with that email. Please try again.");
-               }
-            }else{
-               System.out.println("There is already a book with that title and author. Please try again.");
+      if(!books.contains(booksMain.checkISBN(ISBN))){
+         author = booksMain.checkAuthoringEntitiesEmail(authoringEntityName);
+         if(authoring_entities.contains(author)){
+            publisher = booksMain.checkPublisherName(publisherName);
+            if(publishers.contains(publisher)){
+               books.add(new Books(ISBN, title, yearPublished, author, publisher));
             }
-         }else {
-            System.out.println("There is already a book with that title and publisher. Please try again.");
+            else{
+               System.out.println("There is no Publisher with that name. Please try again.");
+            }
          }
-      }else{
+         else{
+            System.out.println("There is no Authoring Entity with that email. Please try again.");
+         }
+      }
+      else{
          System.out.println("There is already a book with that ISBN. Please try again.");
       }
    }//end of addBook()
@@ -781,10 +802,12 @@ public class BooksMain {
             in.nextLine();
             if(input > 0 && input <= 3){
                valid = true;
-            }else{
+            }
+            else{
                System.out.println("That is not a valid input. Please try again.");
             }
-         }catch (InputMismatchException e){
+         }
+         catch (InputMismatchException e){
             System.out.println("That is not a valid input. Please try again.");
             in.nextLine();
          }
@@ -802,7 +825,8 @@ public class BooksMain {
                   in.nextLine();
                   if(input > 0 && input <= publishers.size()){
                      valid = true;
-                  }else{
+                  }
+                  else{
                      System.out.println("That is not a valid input. Please try again.");
                   }
                }catch (InputMismatchException e){
@@ -823,10 +847,12 @@ public class BooksMain {
                   in.nextLine();
                   if(input > 0 && input <= books.size()){
                      valid = true;
-                  }else{
+                  }
+                  else{
                      System.out.println("That is not a valid input. Please try again.");
                   }
-               }catch (InputMismatchException e){
+               }
+               catch (InputMismatchException e){
                   System.out.println("That is not a valid input. Please try again.");
                   in.nextLine();
                }
@@ -845,10 +871,12 @@ public class BooksMain {
                   in.nextLine();
                   if(input > 0 && input <= writing_groups.size()){
                      valid = true;
-                  }else{
+                  }
+                  else{
                      System.out.println("That is not a valid input. Please try again.");
                   }
-               }catch (InputMismatchException e){
+               }
+               catch (InputMismatchException e){
                   System.out.println("That is not a valid input. Please try again.");
                   in.nextLine();
                }
@@ -889,14 +917,17 @@ public class BooksMain {
                if(input > 0 && input <= numBooks){
                   valid = true;
                   books.remove(input-1);
-               }else{
+               }
+               else{
                   System.out.println("That is not a valid input. Please ty again.");
                }
-            }catch (InputMismatchException e){
+            }
+            catch (InputMismatchException e){
                System.out.println("That is not a valid input. Please ty again.");
                in.nextLine();
             }
-         }else{
+         }
+         else{
             valid = true;
             System.out.println("There are no Books to delete.");
          }
@@ -935,24 +966,29 @@ public class BooksMain {
                      authoringEntityEmail = in.nextLine();
                      if(authoringEntityEmail.length() > 30){
                         System.out.println("That email is not long enough. Please try again.");
-                     }else{
+                     }
+                     else{
                         authoringEntityEmailSuccess = true;
                      }
                   }
                   author = booksMain.checkAuthoringEntitiesEmail(authoringEntityEmail);
                   if(authoring_entities.contains(author)){
                      books.get(input-1).setAuthoring_entities(author);
-                  }else{
+                  }
+                  else {
                      System.out.println("There is no Authoring Entity with that email. Please try again.");
                   }
-               }else{
+               }
+               else {
                   System.out.println("That is not a valid input. Please ty again.");
                }
-            }catch (InputMismatchException e){
+            }
+            catch (InputMismatchException e){
                System.out.println("That is not a valid input. Please ty again.");
                in.nextLine();
             }
-         }else{
+         }
+         else {
             valid = true;
             System.out.println("There are no Books to update.");
          }
@@ -987,7 +1023,6 @@ public class BooksMain {
     * @param authoring_entities  A list of Authoring_entities in our database
     */
    public static void listAuthoringEntities(List<Authoring_entities> authoring_entities){
-      System.out.println("Authoring Entities: ");
       for (int i=0; i<authoring_entities.size(); i++){
          System.out.println("(" + (i+1) + ")" + authoring_entities.get(i).toString());
       }
@@ -998,7 +1033,6 @@ public class BooksMain {
     * @param publishers A list of Publishers in our database
     */
    public static void listPublishers(List<Publishers> publishers){
-      System.out.println("Publishers: ");
       for (int i=0; i<publishers.size(); i++){
          System.out.println("(" + (i+1) + ")" + publishers.get(i).toString());
       }
@@ -1009,7 +1043,6 @@ public class BooksMain {
     * @param books   A list of Books in our database
     */
    public static void listBooks(List<Books> books){
-      System.out.println("Books: ");
       for (int i=0; i<books.size(); i++){
          System.out.println("(" + (i+1) + ")" + books.get(i).toString());
       }
@@ -1020,7 +1053,6 @@ public class BooksMain {
     * @param ad_hoc_teams_members   A list  of Ad_Hoc_team_members in our database
     */
    public static void listAdHocTeamsMembers(List<Ad_hoc_teams_member> ad_hoc_teams_members){
-      System.out.println("Ad Hoc Teams Members: ");
       for (int i=0; i<ad_hoc_teams_members.size(); i++){
          System.out.println("(" + (i+1) + ")" + ad_hoc_teams_members.get(i).toString());
       }

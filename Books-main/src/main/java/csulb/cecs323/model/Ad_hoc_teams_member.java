@@ -23,11 +23,17 @@ import java.util.Objects;
  */
 public class Ad_hoc_teams_member{
 
+    /**
+     * an individual author of typer Authoring_entities
+     */
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "individual_authors_email", referencedColumnName = "email", nullable = false)
     private Authoring_entities individual_authors;
 
+    /**
+     * the ad_hoc_teams the author is in
+     */
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ad_hoc_teams_email", referencedColumnName = "email", nullable = false)
@@ -48,18 +54,34 @@ public class Ad_hoc_teams_member{
         this.ad_hoc_teams = ad_hoc_teams;
     }
 
+    /**
+     * getter method for getting an individual_author instance
+     * @return
+     */
     public Authoring_entities getIndividual_authors() {
         return individual_authors;
     }
 
+    /**
+     * a setter method for setting an individual_author instance
+     * @param individual_authors
+     */
     public void setIndividual_authors(Authoring_entities individual_authors) {
         this.individual_authors = individual_authors;
     }
 
+    /**
+     * a getter method for an ad_hoc_teams instance
+     * @return  ad_hoc_teams
+     */
     public Authoring_entities getAd_hoc_teams() {
         return ad_hoc_teams;
     }
 
+    /**
+     * a setter method for setting an ad_hoc_teams instance
+     * @param ad_hoc_teams
+     */
     public void setAd_hoc_teams(Authoring_entities ad_hoc_teams) {
         this.ad_hoc_teams = ad_hoc_teams;
     }

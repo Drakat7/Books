@@ -44,20 +44,41 @@ import java.util.Objects;
 public class Books {
     @Id
     @Column(nullable = false, length = 17)
+    /**
+     * An external attribute every books has
+     */
     private String ISBN;
 
     @Column(nullable = false, length = 80)
+    /**
+     * title of the book
+     */
     private String title;
 
     @Column(nullable = false)
+    /**
+     * year of the books publishing
+     */
     private int year_published;
 
+    /**
+     * books realtionship to authoring_entities
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "authoring_entity_name", referencedColumnName = "email", nullable = false)
+    /**
+     * the authoring entity who made the book
+     */
     private Authoring_entities authoring_entities;
 
+    /**
+     * books realtionship to Publishers
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publisher_name", referencedColumnName = "name", nullable = false)
+    /**
+     * publisher of the book
+     */
     private Publishers publishers;
 
     /**
