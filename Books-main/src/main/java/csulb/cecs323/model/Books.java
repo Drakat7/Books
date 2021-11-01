@@ -18,22 +18,20 @@ import java.util.Objects;
                 "WHERE ISBN = ?",
         resultClass = Books.class
 )
-
 @NamedNativeQuery(
         name = "CheckTitleAndPublisher",
-        query = "SELECT  * " +
+        query = "SELECT * " +
                 "FROM BOOKS " +
                 "WHERE TITLE = ? AND " +
-                "PUBLISHER_NAME = ?",
+                "PUBLISHER_NAME = ? ",
         resultClass = Books.class
 )
-
 @NamedNativeQuery(
         name = "CheckTitleAndAuthor",
-        query = "SELECT  * " +
+        query = "SELECT * " +
                 "FROM BOOKS " +
                 "WHERE TITLE = ? AND " +
-                "AUTHORING_ENTITY_NAME = ?",
+                "AUTHORING_ENTITY_NAME = ? ",
         resultClass = Books.class
 )
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames =
