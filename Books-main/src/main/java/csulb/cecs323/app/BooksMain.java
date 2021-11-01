@@ -314,9 +314,10 @@ public class BooksMain {
     * @param booksMain              An instance of the Entity manager
     * @param in                     A Scanner object for userinput
     */
-   static void prompt(List<Authoring_entities> authoring_entities, List<Publishers> publishers, List<Books> books,
-                      List<Ad_hoc_teams_member> ad_hoc_teams_members, List<String> authoring_types, BooksMain booksMain, Scanner in){
+   static void prompt(List<Authoring_entities> authoring_entities, List<Publishers> publishers, List<Books> books, List<Ad_hoc_teams_member> ad_hoc_teams_members, List<String> authoring_types, BooksMain booksMain, Scanner in){
+      /** The user's input */
       int input = 0;
+      /** Check for validity of user's input */
       boolean valid = false;
       while(!valid){
          System.out.println("What would you like to do?");
@@ -586,8 +587,7 @@ public class BooksMain {
             System.out.println("That Individual Author is already on that Ad Hoc Team. Please try again.");
          }
       }
-   }
-
+   } // End of addAuthorToTeam function
 
    /**
     * For adding a Publisher to the database
