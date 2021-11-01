@@ -398,9 +398,7 @@ public class BooksMain {
       boolean yearFormedSuccess = false;
       int type = -1;
       System.out.println("******************************************************************************************");
-      for(int i=0; i<authoring_entities.size(); i++){
-         System.out.println(authoring_entities.get(i).toString());
-      }
+      listAuthoringEntities(authoring_entities);
       System.out.println("******************************************************************************************");
       while(!emailSuccess){
          System.out.println("Please enter the authoring entities email (Max length: 30 chars:");
@@ -496,13 +494,9 @@ public class BooksMain {
       Authoring_entities ad_hoc_team;
       int successes = 0;
       System.out.println("******************************************************************************************");
-      for(int i=0; i<authoring_entities.size(); i++){
-         System.out.println(authoring_entities.get(i).toString());
-      }
+      listAuthoringEntities(authoring_entities);
       System.out.println("******************************************************************************************");
-      for(int i=0; i<ad_hoc_teams_members.size(); i++){
-         System.out.println(ad_hoc_teams_members.get(i).toString());
-      }
+      listAdHocTeamsMembers(ad_hoc_teams_members);
       System.out.println("******************************************************************************************");
       while(!individualAuthorsEmailSuccess){
          System.out.println("Please enter the individual authors email (Max length: 30 chars):");
@@ -559,9 +553,7 @@ public class BooksMain {
       boolean emailSuccess = false;
       int phoneSuccess = 0;
       System.out.println("******************************************************************************************");
-      for(int i=0; i<publishers.size(); i++){
-         System.out.println(publishers.get(i).toString());
-      }
+      listPublishers(publishers);
       System.out.println("******************************************************************************************");
       while(!nameSuccess){
          System.out.println("Please enter the publishers name (Max length: 80 chars):");
@@ -636,9 +628,7 @@ public class BooksMain {
      Publishers publisher;
 
      System.out.println("******************************************************************************************");
-     for(int i=0; i<books.size(); i++){
-        System.out.println(books.get(i).toString());
-     }
+     listBooks(books);
      System.out.println("******************************************************************************************");
       while(!ISBNSuccess){
         System.out.println("Please enter an ISBN (Max length: 17 chars");
@@ -828,9 +818,7 @@ public class BooksMain {
       while(!valid){
          if(numBooks > 0){
             System.out.println("******************************************************************************************");
-            for(int i=0; i<numBooks; i++){
-               System.out.println("(" + (i+1) + ") " + books.get(i).toString());
-            }
+            listBooks(books);
             System.out.println("******************************************************************************************");
             System.out.println("Please select a book to delete.");
             try{
@@ -865,9 +853,7 @@ public class BooksMain {
       while(!valid){
          if(numBooks > 0){
             System.out.println("******************************************************************************************");
-            for(int i=0; i<numBooks; i++){
-               System.out.println("(" + (i+1) + ") " + books.get(i).toString());
-            }
+            listBooks(books);
             System.out.println("******************************************************************************************");
             System.out.println("Please select a book to update.");
             try{
@@ -916,6 +902,30 @@ public class BooksMain {
       for(int k=0; k<authoring_entities.size(); k++)
       {
          System.out.println("(" + (count++) + ") Authoring Entity: " + authoring_entities.get(k).getEmail() + ", " + authoring_entities.get(k).getAuthoring_entity_type());
+      }
+   }
+
+   public static void listAuthoringEntities(List<Authoring_entities> authoring_entities){
+      for (int i=0; i<authoring_entities.size(); i++){
+         System.out.println("(" + (i+1) + ")" + authoring_entities.get(i).toString());
+      }
+   }
+
+   public static void listPublishers(List<Publishers> publishers){
+      for (int i=0; i<publishers.size(); i++){
+         System.out.println("(" + (i+1) + ")" + publishers.get(i).toString());
+      }
+   }
+
+   public static void listBooks(List<Books> books){
+      for (int i=0; i<books.size(); i++){
+         System.out.println("(" + (i+1) + ")" + books.get(i).toString());
+      }
+   }
+
+   public static void listAdHocTeamsMembers(List<Ad_hoc_teams_member> ad_hoc_teams_members){
+      for (int i=0; i<ad_hoc_teams_members.size(); i++){
+         System.out.println("(" + (i+1) + ")" + ad_hoc_teams_members.get(i).toString());
       }
    }
 
