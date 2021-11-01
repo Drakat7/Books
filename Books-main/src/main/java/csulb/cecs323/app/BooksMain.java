@@ -213,6 +213,14 @@ public class BooksMain {
       return authoring_entities;
    }
 
+   public List<Authoring_entities> getWritingGroups(){
+      List<Authoring_entities> authoring_entities = this.entityManager.createNamedQuery("ReturnWritingGroups",
+              Authoring_entities.class).getResultList();
+      return authoring_entities;
+   }
+
+
+
    /**
     * Checks to see if there is already an AuthoringEntity with this
     * email
@@ -347,9 +355,10 @@ public class BooksMain {
             addPublisher(publishers, booksMain, in);
             break;
          case 3:
-            addBook(books, booksMain, in);
+            addBook(authoring_entities, publishers, books, booksMain, in);
             break;
          case 4:
+            listInfo(authoring_entities, publishers, books, booksMain, in);
             break;
          case 5:
             break;
@@ -604,22 +613,27 @@ public class BooksMain {
     * @param booksMain
     * @param in
     */
-   public static void addBook(List<Books> books, BooksMain booksMain, Scanner in){
+   public static void addBook(List<Authoring_entities> authoring_entities, List<Publishers> publishers,
+                              List<Books> books, BooksMain booksMain, Scanner in){
      String ISBN = "";
      String title = "";
      int yearPublished = -1;
-     String authoringEntities = "";
-     String publisher = "";
-     Authoring_entities entity;
-     Publishers thePublisher;
-
+     String authoringEntityName = "";
+     String publisherName = "";
      boolean ISBNSuccess = false;
      boolean titleSuccess = false;
-     boolean yPSuccess = false;
-     boolean aESuccess = false;
-     boolean publisherSuccess = false;
+     boolean yearPublishedSuccess = false;
+     boolean authoringEntityNameSuccess = false;
+     boolean publisherNameSuccess = false;
+     Authoring_entities author;
+     Publishers publisher;
 
-     while(!ISBNSuccess){
+     System.out.println("******************************************************************************************");
+     for(int i=0; i<books.size(); i++){
+        System.out.println(books.get(i).toString());
+     }
+     System.out.println("******************************************************************************************");
+      while(!ISBNSuccess){
         System.out.println("Please enter an ISBN (Max length: 17 chars");
         ISBN = in.nextLine();
         if (ISBN.length() > 17){
@@ -639,56 +653,56 @@ public class BooksMain {
         }
      }
 
-     while(!yPSuccess){
-        System.out.println("Please enter the year of publication (Max length: 4 chars");
+     while(!yearPublishedSuccess){
+        System.out.println("Please enter the year of publication: ");
         try {
            yearPublished = in.nextInt();
+           in.nextLine();;
+           if(yearPublished < 0){
+              System.out.println("That is not a valid year. Please try again.");
+           }
+           yearPublishedSuccess = true;
         }catch (InputMismatchException e) {
            in.nextLine();
            System.out.println("That's not a number! Try again\n");
         }
-        if (yearPublished > 9999 || yearPublished < 0){
-           System.out.println("Year is to big or too small");
+     }
+
+     while(!authoringEntityNameSuccess){
+        System.out.println("Please enter authoring entities email (Max length: 80 chars): ");
+        authoringEntityName = in.nextLine();
+        if (authoringEntityName.length() > 80){
+           System.out.println("That name is too long. Please try again");
         }else{
-           yPSuccess = true;
+           authoringEntityNameSuccess = true;
         }
      }
 
-     while(!aESuccess){
-        System.out.println("Please enter the name of the authoring entity (Max length: 80 ");
-        authoringEntities = in.nextLine();
-        if (authoringEntities.length() > 80){
+     while(!publisherNameSuccess){
+        System.out.println("Please enter the name of the publishers name (Max length: 80 chars): ");
+        publisherName = in.nextLine();
+        if (publisherName.length() > 80){
            System.out.println("Name is too long, Please try again");
         }else{
-           aESuccess = true;
+           publisherNameSuccess = true;
         }
      }
 
-     while(!publisherSuccess){
-        System.out.println("Please enter the name of the publishers name (Max length: 80 ");
-        publisher = in.nextLine();
-        if (publisher.length() > 80){
-           System.out.println("Name is too long, Please try again");
-        }else{
-           publisherSuccess = true;
-        }
-     }
-
-      /*if(booksMain.checkISBN(ISBN) = null){
-         if(booksMain.checkPublisherName(publisher) != null){
-            if(booksMain.CheckAuthoringEntitiesName(authoringEntities) != null){
-               thePublisher = booksMain.checkPublisherName(publisher);
-               entity = booksMain.checkAuthoringEntitiesName(authoringEntities);
-               books.add(new Books(ISBN, title, yearPublished, entity, thePublisher));
+      if(!books.contains(booksMain.checkISBN(ISBN))){
+         author = booksMain.checkAuthoringEntitiesEmail(authoringEntityName);
+         if(authoring_entities.contains(author)){
+            publisher = booksMain.checkPublisherName(publisherName);
+            if(publishers.contains(publisher)){
+               books.add(new Books(ISBN, title, yearPublished, author, publisher));
             }else{
-               System.out.println("There is no authoring entity with that name. Please try again.");
+               System.out.println("There is no Publisher with that name. Please try again.");
             }
          }else{
-            System.out.println("There is no publisher with that name. Please try again.");
+            System.out.println("There is no Authoring Entity with that email. Please try again.");
          }
       }else{
          System.out.println("There is already a book with that ISBN. Please try again.");
-      }*/
+      }
    }//end of addBook()
 
    /**
@@ -701,47 +715,114 @@ public class BooksMain {
     * @param authoring_entities
     * @param in
     */
-   public void listInfo(List<Publishers> publishers, BooksMain booksMain, List<Authoring_entities> authoring_entities, Scanner in){
-      boolean truth = false;
-      System.out.println("Choose which of the following information to view: ");
-
-      while(!truth){
-         System.out.println(" 1) Publisher \n 2) Book \n 3) Writing Group");
-         int input = in.nextInt();
-         if (input < 1 || input > 3) {
-            System.out.println(" That is not a valid choice. Please choose again"); 
-         }else{
-            truth = true;
-            switch(input) {
-               case 1: {
-                  for (int i = 0; i < publishers.size(); i++ ){
-                     System.out.println(i + ". " + publishers.get(i).getName());
-                  }
-                  System.out.println("Please select an option: ");
-                  int pubInp = in.nextInt();
-                  in.nextLine();
-                  System.out.println(publishers.get(pubInp).toString());
-                  break;
-               }
-               case 2: {
-                  int i = 0;
-                  for (Books b : getBooks()){
-                     System.out.println(i + ". " + b.getISBN() + " " + b.getTitle());
-                     ++i;
-                  }
-                  System.out.println("Please select an option: ");
-                  int bookInp = in.nextInt();
-                  in.nextLine();
-                  System.out.println(getBooks().get(bookInp).toString());
-                  break;
-               }
-               // TODO: Access to Authoring entities information
-               case 3:{
-                  int i = 0;
-               }
+   public static void listInfo(List<Authoring_entities> authoring_entities, List<Publishers> publishers, List<Books> books, BooksMain booksMain, Scanner in){
+      boolean valid = false;
+      int input = 0;
+      List<Authoring_entities> writing_groups;
+      while(!valid){
+         System.out.println("(1) List Publisher Info");
+         System.out.println("(2) List Book Info");
+         System.out.println("(3) List Writing Group Info");
+         try{
+            input = in.nextInt();
+            in.nextLine();
+            if(input > 0 && input <= 3){
+               valid = true;
+            }else{
+               System.out.println("That is not a valid input. Please try again.");
             }
+         }catch (InputMismatchException e){
+            System.out.println("That is not a valid input. Please try again.");
+            in.nextLine();
          }
       }
+
+      switch(input){
+         case 1:
+            valid = false;
+            while(!valid){
+               for (int i=0; i<publishers.size(); i++){
+                  System.out.println("(" + (i+1) + ") " + publishers.get(i).getName());
+               }
+               try{
+                  input = in.nextInt();
+                  in.nextLine();
+                  if(input > 0 && input <= publishers.size()){
+                     valid = true;
+                  }else{
+                     System.out.println("That is not a valid input. Please try again.");
+                  }
+               }catch (InputMismatchException e){
+                  System.out.println("That is not a valid input. Please try again.");
+                  in.nextLine();
+               }
+            }
+            System.out.println(publishers.get(input-1).toString());
+            break;
+         case 2:
+            valid = false;
+            while(!valid){
+               for (int i=0; i<books.size(); i++){
+                  System.out.println("(" + (i+1) + ") " + books.get(i).getTitle());
+               }
+               try{
+                  input = in.nextInt();
+                  in.nextLine();
+                  if(input > 0 && input <= books.size()){
+                     valid = true;
+                  }else{
+                     System.out.println("That is not a valid input. Please try again.");
+                  }
+               }catch (InputMismatchException e){
+                  System.out.println("That is not a valid input. Please try again.");
+                  in.nextLine();
+               }
+            }
+            System.out.println(books.get(input-1).toString());
+            break;
+         case 3:
+            valid = false;
+            writing_groups = booksMain.getWritingGroups();
+            while(!valid){
+               for (int i=0; i<writing_groups.size(); i++){
+                  System.out.println("(" + (i+1) + ") " + writing_groups.get(i).getName());
+               }
+               try{
+                  input = in.nextInt();
+                  in.nextLine();
+                  if(input > 0 && input <= writing_groups.size()){
+                     valid = true;
+                  }else{
+                     System.out.println("That is not a valid input. Please try again.");
+                  }
+               }catch (InputMismatchException e){
+                  System.out.println("That is not a valid input. Please try again.");
+                  in.nextLine();
+               }
+            }
+            System.out.println(writing_groups.get(input-1).toString());
+            break;
+         default:
+            System.out.println("A critical error has occurred, shutting down.");
+            System.exit(1);
+      }
    } // end of listInfo()
+
+   public void deleteBook(List<Books> books, BooksMain booksMain, Scanner in){
+      String ISBN = "";
+      String title = "";
+      int year_published = -1;
+      String authoring_entity_name = "";
+      String publisher_name = "";
+
+   }
+
+   public void updateBook(){
+
+   }
+
+   public void listPrimaryKeys(){
+
+   }
 
 } // End of BooksMain class

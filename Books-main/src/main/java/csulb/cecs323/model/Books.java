@@ -14,7 +14,7 @@ import java.util.Objects;
 @NamedNativeQuery(
         name = "CheckISBN",
         query = "SELECT * " +
-                "FROM BOOKS * " +
+                "FROM BOOKS " +
                 "WHERE ISBN = ?",
         resultClass = Books.class
 )

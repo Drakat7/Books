@@ -17,6 +17,27 @@ import java.util.Objects;
         resultClass = Authoring_entities.class
 )
 @NamedNativeQuery(
+        name = "ReturnWritingGroups",
+        query = "SELECT * " +
+                "FROM AUTHORING_ENTITIES " +
+                "Where AUTHORING_ENTITY_TYPE = 'Writing Group' ",
+        resultClass = Authoring_entities.class
+)
+@NamedNativeQuery(
+        name = "ReturnIndividualAuthors",
+        query = "SELECT * " +
+                "FROM AUTHORING_ENTITIES " +
+                "Where AUTHORING_ENTITY_TYPE = 'Individual Author' ",
+        resultClass = Authoring_entities.class
+)
+@NamedNativeQuery(
+        name = "ReturnAdHocTeams",
+        query = "SELECT * " +
+                "FROM AUTHORING_ENTITIES " +
+                "Where AUTHORING_ENTITY_TYPE = 'Ad Hoc Team' ",
+        resultClass = Authoring_entities.class
+)
+@NamedNativeQuery(
         name = "CheckAuthoringEntitiesEmail",
         query = "SELECT * " +
                 "FROM  AUTHORING_ENTITIES " +
