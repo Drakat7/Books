@@ -149,8 +149,8 @@ public class BooksMain {
 
    /**
     * Checks to see if a publisher name is already in our database
-    * @param name
-    * @return Publisher
+    * @param name The given name of the publisher
+    * @return a list of Publishers with the provided name, else null 
     */
    public Publishers checkPublisherName(String name){
       List<Publishers> publishers = this.entityManager.createNamedQuery("CheckPublishersName",
@@ -381,9 +381,9 @@ public class BooksMain {
 
    /**
     * A method for adding Authoring_entities to our database
-    * @param authoring_entities
-    * @param booksMain
-    * @param in
+    * @param authoring_entities  A list of Authoring_entities in our database
+    * @param booksMain  An instance of the Entity mananger
+    * @param in   A Scanner object for user input
     */
    public static void addAuthoringEntity(List<Authoring_entities> authoring_entities, BooksMain booksMain, Scanner in){
       String email = "";
@@ -479,10 +479,10 @@ public class BooksMain {
 
    /**
     * A method for adding an author to an Ad_hoc_team
-    * @param authoring_entities
-    * @param ad_hoc_teams_members
-    * @param booksMain
-    * @param in
+    * @param authoring_entities  A list of Authoring_entities in our database
+    * @param ad_hoc_teams_members   A list of ad_hoc_team)members in our database
+    * @param booksMain  An instance of the Entity mananger
+    * @param in   A scanner object for userinput
     */
    public static void addAuthorToTeam(List<Authoring_entities> authoring_entities, List<Ad_hoc_teams_member> ad_hoc_teams_members,
                                       BooksMain booksMain, Scanner in){
@@ -541,9 +541,9 @@ public class BooksMain {
 
    /**
     * For adding a Publisher to the database
-    * @param publishers
-    * @param booksMain
-    * @param in
+    * @param publishers A list of Publishers in our database
+    * @param booksMain  An instance of the Entity manager
+    * @param in   A Scanner object for user input
     */
    public static void addPublisher(List<Publishers> publishers, BooksMain booksMain, Scanner in){
       String name= "";
@@ -608,9 +608,9 @@ public class BooksMain {
     * making sure not to add the same book twice
     * making sure the publiser exist
     * making sure the authoring entity exist
-    * @param books
-    * @param booksMain
-    * @param in
+    * @param books   A list of Books in our database
+    * @param booksMain  An instance of the Entity manager
+    * @param in   A Scanner object for userinput
     */
    public static void addBook(List<Authoring_entities> authoring_entities, List<Publishers> publishers,
                               List<Books> books, BooksMain booksMain, Scanner in){
@@ -703,14 +703,14 @@ public class BooksMain {
    }//end of addBook()
 
    /**
-    * Shows information about publishers, Books, or Writing Group
-    * For publishers it shows the name
-    * For Books it shows its ISBN and title
-    * For Writing Group it shows authoring entity type and Email
-    * @param publishers
-    * @param booksMain
-    * @param authoring_entities
-    * @param in
+    * Displays information about publishers, Books, or Writing Group
+    * For publishers it displays the name
+    * For Books it displays its ISBN and title
+    * For Writing Group it displays its name
+    * @param publishers A list of publishers in our database
+    * @param booksMain  An instance of the Entity manager
+    * @param authoring_entities  A list of Authoring_entities in our database
+    * @param in   A Scanner object for user input
     */
    public static void listInfo(List<Authoring_entities> authoring_entities, List<Publishers> publishers, List<Books> books, BooksMain booksMain, Scanner in){
       boolean valid = false;
@@ -805,6 +805,12 @@ public class BooksMain {
       }
    } // end of listInfo()
 
+   /**
+    * Deletes a book from the database if it exists, if no book exists exits to main menu
+    * @param books   A list of Books in our database
+    * @param booksMain  An instance of the Entity manager
+    * @param in   A Scanner object for user input  
+    * */
    public static void deleteBook(List<Books> books, BooksMain booksMain, Scanner in){
       String ISBN = "";
       String title = "";
@@ -841,6 +847,13 @@ public class BooksMain {
       }
    }
 
+   /**
+    * Updates a book that is already within the database
+    * @param authoring_entities  A list of Authoring_entities in our database
+    * @param books   A list of Books in our database
+    * @param booksMain  An instance of the Entity manager
+    * @param in   A Scanner object for user input
+    */
    public static void updateBook(List<Authoring_entities> authoring_entities, List<Books> books, BooksMain booksMain,
                                  Scanner in){
       String authoringEntityEmail = "";
@@ -891,6 +904,14 @@ public class BooksMain {
 
    }
 
+   /**
+    * Displays the primary keys of all of the rows
+    * @param authoring_entities  A list of Authoring_entities in our database
+    * @param publishers A list of Publishers in our database
+    * @param books   A list of Books in our database
+    * @param booksMain  An instance of the Entity manager
+    * @param in   A Scanner object for userinput
+    */
    public static void listPrimaryKeys(List<Authoring_entities> authoring_entities, List<Publishers> publishers, List<Books> books, BooksMain booksMain, Scanner in){
       int count = 1;
       for (int i=0; i<publishers.size(); i++){
@@ -905,24 +926,40 @@ public class BooksMain {
       }
    }
 
+   /**
+    * Displays all of the authoring entities
+    * @param authoring_entities  A list of Authoring_entities in our database
+    */
    public static void listAuthoringEntities(List<Authoring_entities> authoring_entities){
       for (int i=0; i<authoring_entities.size(); i++){
          System.out.println("(" + (i+1) + ")" + authoring_entities.get(i).toString());
       }
    }
 
+   /**
+    * Displays all of the publishers
+    * @param publishers A list of Publishers in our database
+    */
    public static void listPublishers(List<Publishers> publishers){
       for (int i=0; i<publishers.size(); i++){
          System.out.println("(" + (i+1) + ")" + publishers.get(i).toString());
       }
    }
 
+   /**
+    * Displays all of the books
+    * @param books   A list of Books in our database
+    */
    public static void listBooks(List<Books> books){
       for (int i=0; i<books.size(); i++){
          System.out.println("(" + (i+1) + ")" + books.get(i).toString());
       }
    }
 
+   /**
+    * Displays all of the Ad_Hoc_team_members
+    * @param ad_hoc_teams_members   A list  of Ad_Hoc_team_members in our database
+    */
    public static void listAdHocTeamsMembers(List<Ad_hoc_teams_member> ad_hoc_teams_members){
       for (int i=0; i<ad_hoc_teams_members.size(); i++){
          System.out.println("(" + (i+1) + ")" + ad_hoc_teams_members.get(i).toString());
