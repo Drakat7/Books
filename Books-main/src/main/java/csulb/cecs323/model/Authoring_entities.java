@@ -24,10 +24,11 @@ import java.util.Objects;
         resultClass = Authoring_entities.class
 )
 @NamedNativeQuery(
-        name = "CheckAuthoringEntitiesName",
-        query = "SELECT * " +
-                "FROM  AUTHORING_ENTITIES " +
-                "WHERE NAME = ? ",
+        name = "CheckAuthoringEntitiesType",
+        query = "SELECT  * " +
+                "FROM AUTHORING_ENTITIES " +
+                "WHERE EMAIL = ? AND " +
+                "AUTHORING_ENTITY_TYPE = ? ",
         resultClass = Authoring_entities.class
 )
 /**

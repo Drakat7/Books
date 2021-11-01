@@ -10,6 +10,14 @@ import java.util.Objects;
                 "FROM AD_HOC_TEAMS_MEMBER ",
         resultClass = Ad_hoc_teams_member.class
 )
+@NamedNativeQuery(
+        name = "ReturnAdHocTeamsMember",
+        query = "SELECT * " +
+                "FROM AD_HOC_TEAMS_MEMBER " +
+                "WHERE INDIVIDUAL_AUTHORS_EMAIL = ? AND " +
+                "AD_HOC_TEAMS_EMAIL = ? ",
+        resultClass = Ad_hoc_teams_member.class
+)
 /**
  *A person who is a member of an Ad Hoc team
  */
@@ -18,12 +26,12 @@ public class Ad_hoc_teams_member{
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "individual_authors_email", referencedColumnName = "email", nullable = false)
-    private Individual_author individual_authors;
+    private Authoring_entities individual_authors;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ad_hoc_teams_email", referencedColumnName = "email", nullable = false)
-    private Ad_hoc_team ad_hoc_teams;
+    private Authoring_entities ad_hoc_teams;
 
     /**
      * Default constructor required by JPA
@@ -35,24 +43,24 @@ public class Ad_hoc_teams_member{
      * @param individual_authors  an individual author
      * @param ad_hoc_teams        an ad hoc team
      */
-    public Ad_hoc_teams_member(Individual_author individual_authors, Ad_hoc_team ad_hoc_teams){
+    public Ad_hoc_teams_member(Authoring_entities individual_authors, Authoring_entities ad_hoc_teams){
         this.individual_authors = individual_authors;
         this.ad_hoc_teams = ad_hoc_teams;
     }
 
-    public Individual_author getIndividual_authors() {
+    public Authoring_entities getIndividual_authors() {
         return individual_authors;
     }
 
-    public void setIndividual_authors(Individual_author individual_authors) {
+    public void setIndividual_authors(Authoring_entities individual_authors) {
         this.individual_authors = individual_authors;
     }
 
-    public Ad_hoc_team getAd_hoc_teams() {
+    public Authoring_entities getAd_hoc_teams() {
         return ad_hoc_teams;
     }
 
-    public void setAd_hoc_teams(Ad_hoc_team ad_hoc_teams) {
+    public void setAd_hoc_teams(Authoring_entities ad_hoc_teams) {
         this.ad_hoc_teams = ad_hoc_teams;
     }
 
