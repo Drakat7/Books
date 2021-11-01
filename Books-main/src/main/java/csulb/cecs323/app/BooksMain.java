@@ -135,7 +135,7 @@ public class BooksMain {
       for (E next : entities) {
          LOGGER.info("Persisted object after flush (non-null id): " + next);
       }
-   } // End of createEntity member method
+   } // End of createEntity function
 
    /**
     * returns a list of Publishers in our data for viewing or malipulation
@@ -145,7 +145,7 @@ public class BooksMain {
       List<Publishers> publishers = this.entityManager.createNamedQuery("ReturnPublishers",
               Publishers.class).getResultList();
       return publishers;
-   }
+   } // End of getPublishers method
 
    /**
     * Checks to see if a publisher name is already in our database
@@ -161,7 +161,7 @@ public class BooksMain {
       else {
          return publishers.get(0);
       }
-   }
+   } // End of checkPublishername function
 
    /**
     * Checks to see if a publisher email is already in our database
@@ -177,7 +177,7 @@ public class BooksMain {
       else {
          return publishers.get(0);
       }
-   }
+   }// End of checkPublisherEmail function
 
    /**
     * Checks to see if a publisher Phone number is already in our database
@@ -193,7 +193,7 @@ public class BooksMain {
       else {
          return publishers.get(0);
       }
-   }
+   }// End of checkPublisherPhone function
 
    /**
     * Returns a list of books already in our database
@@ -203,7 +203,7 @@ public class BooksMain {
       List<Books> books = this.entityManager.createNamedQuery("ReturnBooks",
               Books.class).getResultList();
       return books;
-   }
+   } // End of getBooks method
 
    /**
     * Returns a list of Authoring Entities already in our database
@@ -213,7 +213,7 @@ public class BooksMain {
       List<Authoring_entities> authoring_entities = this.entityManager.createNamedQuery("ReturnAuthoringEntities",
               Authoring_entities.class).getResultList();
       return authoring_entities;
-   }
+   } // End of getAuthoringEntities method 
 
    /**
     * Returns a list of Writing Groups already in our database
@@ -223,7 +223,7 @@ public class BooksMain {
       List<Authoring_entities> authoring_entities = this.entityManager.createNamedQuery("ReturnWritingGroups",
               Authoring_entities.class).getResultList();
       return authoring_entities;
-   }
+   } // End of getWritingGroups method
 
    /**
     * Checks to see if there is already an AuthoringEntity with this
@@ -240,7 +240,7 @@ public class BooksMain {
       else {
          return authoring_entities.get(0);
       }
-   }
+   } // End of checkAuthoringEntitiesEmail function
 
    /**
     * Checks Authoring entities type 
@@ -257,7 +257,7 @@ public class BooksMain {
       else {
          return authoring_entities.get(0);
       }
-   }
+   } // End of checkAuthoringEntitiesType function
 
    /**
     * Checks to see if there is already a book with the same ISBN in our database
@@ -273,7 +273,7 @@ public class BooksMain {
       else {
          return books.get(0);
       }
-   }
+   } // End of checkISBN function
 
    /**
     * Returns a list of Ad hoc team members
@@ -283,7 +283,7 @@ public class BooksMain {
       List<Ad_hoc_teams_member> ad_hoc_teams_members = this.entityManager.createNamedQuery("ReturnAdHocTeamsMembers",
               Ad_hoc_teams_member.class).getResultList();
       return ad_hoc_teams_members;
-   }
+   } // End of getAdHocTeamsMembers method
 
    /**
     * Returns Ad_hoc_team member's information
@@ -301,7 +301,7 @@ public class BooksMain {
       else {
          return ad_hoc_teams_members.get(0);
       }
-   }
+   } // End of getAdHocTeamsMember function
 
    /**
     * Where most of logic user input logic is done
@@ -399,7 +399,7 @@ public class BooksMain {
             System.out.println("A critical error has occurred, shutting down.");
             System.exit(1);
       }
-   }
+   } // End of prompt function
 
    /**
     * A method for adding Authoring_entities to our database
@@ -408,16 +408,27 @@ public class BooksMain {
     * @param in   A Scanner object for user input
     */
    public static void addAuthoringEntity(List<Authoring_entities> authoring_entities, BooksMain booksMain, Scanner in){
+      /** The authoring entities email */
       String email = "";
+      /** The authoring entity type */
       String authoring_entity_type = "";
+      /** The publisher's name */
       String name = "";
+      /** The head writer's name */
       String head_writer = "";
+      /** The year that the authoring entity was formed*/
       int year_formed = 0;
+      /** Check for valid email */
       boolean emailSuccess = false;
+      /** Check for valid type for authoring entity type */
       boolean authoringEntityTypeSuccess = false;
+      /** Check for valid publisher's name */
       boolean nameSuccess = false;
+      /** Check for head writer's name */
       boolean headWriterSuccess = false;
+      /** Check for the year that the authoring entity was formed */
       boolean yearFormedSuccess = false;
+      /** Check for matching case in database */
       int type = -1;
       System.out.println("******************************************************************************************");
       listAuthoringEntities(authoring_entities);
@@ -427,7 +438,8 @@ public class BooksMain {
          email = in.nextLine();
          if(email.length() > 30){
             System.out.println("That email is too long. Please try again.");
-         }else{
+         }
+         else{
             emailSuccess = true;
          }
       }
@@ -501,7 +513,7 @@ public class BooksMain {
       else {
          System.out.println("There is already an authoring entity with that email. Please try again.");
       }
-   }
+   } // End of addAuthoringEntity function
 
    /**
     * A method for adding an author to an Ad_hoc_team
@@ -512,12 +524,19 @@ public class BooksMain {
     */
    public static void addAuthorToTeam(List<Authoring_entities> authoring_entities, List<Ad_hoc_teams_member> ad_hoc_teams_members,
                                       BooksMain booksMain, Scanner in){
+      /** Individual authors email */
       String individual_authors_email = "";
+      /** Ad Hoc Teams email */
       String ad_hoc_teams_email = "";
+      /** Check validity of individual author's email */
       boolean individualAuthorsEmailSuccess = false;
+      /** Check validity of Ad Hoc Teams email */
       boolean adHocTeamsEmailSuccess = false;
+      /** Individual author */
       Authoring_entities individual_author;
+      /** Ad Hoc Team */
       Authoring_entities ad_hoc_team;
+      /** Check for successful addition to Authoring Entity */
       int successes = 0;
       System.out.println("******************************************************************************************");
       listAuthoringEntities(authoring_entities);
@@ -577,11 +596,17 @@ public class BooksMain {
     * @param in   A Scanner object for user input
     */
    public static void addPublisher(List<Publishers> publishers, BooksMain booksMain, Scanner in){
+      /** The Publisher's name */
       String name= "";
+      /** The Publisher's email */
       String email = "";
+      /** The Publisher's phone number */
       String phone = "";
+      /** Check for validity of Publisher's name */
       boolean nameSuccess = false;
+      /** Check for validity of Publisher's email */
       boolean emailSuccess = false;
+      /** Check for validity of Publisher's phone number */
       int phoneSuccess = 0;
       System.out.println("******************************************************************************************");
       listPublishers(publishers);
@@ -639,7 +664,7 @@ public class BooksMain {
       else {
          System.out.println("There is already a publisher with that name. Please try again.");
       }
-   }//end of addPublisher
+   } // End of addPublisher function
 
    /**
     * Adds a book to our existing database
@@ -650,19 +675,30 @@ public class BooksMain {
     * @param booksMain  An instance of the Entity manager
     * @param in   A Scanner object for userinput
     */
-   public static void addBook(List<Authoring_entities> authoring_entities, List<Publishers> publishers,
-                              List<Books> books, BooksMain booksMain, Scanner in){
+   public static void addBook(List<Authoring_entities> authoring_entities, List<Publishers> publishers, List<Books> books, BooksMain booksMain, Scanner in){
+     /** The International Standard Book Number used to uniquely identify books */ 
      String ISBN = "";
+     /** The book title */
      String title = "";
+     /** The year the book is published */
      int yearPublished = -1;
+     /** The authoring entity's name */
      String authoringEntityName = "";
+     /** The publisher's name */
      String publisherName = "";
+     /** Check for validity of the ISBN  */
      boolean ISBNSuccess = false;
+     /** Check for validity of the book's title */
      boolean titleSuccess = false;
+     /** Check for validity of the book's publication year */
      boolean yearPublishedSuccess = false;
+     /** Check for validity of the authoring entity's name */
      boolean authoringEntityNameSuccess = false;
+     /** Check for validity of the publisher's name */
      boolean publisherNameSuccess = false;
+     /** The author */
      Authoring_entities author;
+     /** The publisher */
      Publishers publisher;
 
      System.out.println("******************************************************************************************");
@@ -746,7 +782,7 @@ public class BooksMain {
       else{
          System.out.println("There is already a book with that ISBN. Please try again.");
       }
-   }//end of addBook()
+   } // End of addBook function
 
    /**
     * Displays information about publishers, Books, or Writing Group
@@ -759,7 +795,9 @@ public class BooksMain {
     * @param in   A Scanner object for user input
     */
    public static void listInfo(List<Authoring_entities> authoring_entities, List<Publishers> publishers, List<Books> books, BooksMain booksMain, Scanner in){
+      /** Check for user input */
       boolean valid = false;
+      /** Number of the user's input */
       int input = 0;
       List<Authoring_entities> writing_groups;
       while(!valid){
@@ -798,7 +836,8 @@ public class BooksMain {
                   else{
                      System.out.println("That is not a valid input. Please try again.");
                   }
-               }catch (InputMismatchException e){
+               }
+               catch (InputMismatchException e){
                   System.out.println("That is not a valid input. Please try again.");
                   in.nextLine();
                }
@@ -856,7 +895,7 @@ public class BooksMain {
             System.out.println("A critical error has occurred, shutting down.");
             System.exit(1);
       }
-   } // end of listInfo()
+   } // End of listInfo function
 
    /**
     * Deletes a book from the database if it exists, if no book exists exits to main menu
@@ -865,13 +904,21 @@ public class BooksMain {
     * @param in   A Scanner object for user input  
     * */
    public static void deleteBook(List<Books> books, BooksMain booksMain, Scanner in){
+      /** The Internation Standard Book Number that is used to uniquely identify a book */
       String ISBN = "";
+      /** The title of the book */
       String title = "";
+      /** The year the book is published */
       int year_published = -1;
+      /** The authoring entity's name */
       String authoring_entity_name = "";
+      /** The publisher's name */
       String publisher_name = "";
+      /** Check for a valid input of information */
       boolean valid = false;
+      /** Number that the user inputs */
       int input = -1;
+      /** The range that decides how many books there are to choose to delete */
       int numBooks = books.size();
 
       while(!valid){
@@ -901,7 +948,7 @@ public class BooksMain {
             System.out.println("There are no Books to delete.");
          }
       }
-   }
+   } // End of deleteBook function
 
    /**
     * Updates a book that is already within the database
@@ -910,13 +957,18 @@ public class BooksMain {
     * @param booksMain  An instance of the Entity manager
     * @param in   A Scanner object for user input
     */
-   public static void updateBook(List<Authoring_entities> authoring_entities, List<Books> books, BooksMain booksMain,
-                                 Scanner in){
+   public static void updateBook(List<Authoring_entities> authoring_entities, List<Books> books, BooksMain booksMain, Scanner in){
+      /** The authoring entity's email */
       String authoringEntityEmail = "";
+      /** Check for validity of authoring entity's email */
       boolean authoringEntityEmailSuccess = false;
+      /** Check for user's input */
       boolean valid = false;
+      /** User's input */
       int input = -1;
+      /** Number that determines the range of which the user will decide to update */
       int numBooks = books.size();
+      /** The author */
       Authoring_entities author;
 
       while(!valid){
@@ -962,8 +1014,7 @@ public class BooksMain {
             System.out.println("There are no Books to update.");
          }
       }
-
-   }
+   } // End of updateBook function
 
    /**
     * Displays the primary keys of all of the rows
@@ -974,6 +1025,7 @@ public class BooksMain {
     * @param in   A Scanner object for userinput
     */
    public static void listPrimaryKeys(List<Authoring_entities> authoring_entities, List<Publishers> publishers, List<Books> books, BooksMain booksMain, Scanner in){
+      /** A number that helps each for loop display the correct information */
       int count = 1;
       for (int i=0; i<publishers.size(); i++){
          System.out.println("(" + (count++) + ") Publisher: " + publishers.get(i).getName());
@@ -985,7 +1037,7 @@ public class BooksMain {
       {
          System.out.println("(" + (count++) + ") Authoring Entity: " + authoring_entities.get(k).getEmail() + ", " + authoring_entities.get(k).getAuthoring_entity_type());
       }
-   }
+   } // End of listPrimaryKeys function
 
    /**
     * Displays all of the authoring entities
@@ -995,7 +1047,7 @@ public class BooksMain {
       for (int i=0; i<authoring_entities.size(); i++){
          System.out.println("(" + (i+1) + ")" + authoring_entities.get(i).toString());
       }
-   }
+   } // End of listAuthoringEntities function
 
    /**
     * Displays all of the publishers
@@ -1005,7 +1057,7 @@ public class BooksMain {
       for (int i=0; i<publishers.size(); i++){
          System.out.println("(" + (i+1) + ")" + publishers.get(i).toString());
       }
-   }
+   } // End of listPublishers function
 
    /**
     * Displays all of the books
@@ -1015,7 +1067,7 @@ public class BooksMain {
       for (int i=0; i<books.size(); i++){
          System.out.println("(" + (i+1) + ")" + books.get(i).toString());
       }
-   }
+   } // End of listBooks function
 
    /**
     * Displays all of the Ad_Hoc_team_members
@@ -1025,6 +1077,6 @@ public class BooksMain {
       for (int i=0; i<ad_hoc_teams_members.size(); i++){
          System.out.println("(" + (i+1) + ")" + ad_hoc_teams_members.get(i).toString());
       }
-   }
+   } // End of listAdHocTeamsMembers
 
 } // End of BooksMain class
