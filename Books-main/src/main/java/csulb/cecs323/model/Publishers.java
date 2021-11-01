@@ -40,16 +40,28 @@ import java.util.Objects;
  */
 public class Publishers {
 
+    /**
+     * Publishers name
+     */
     @Id
     @Column(nullable = false, length = 80)
     private String name;
 
+    /**
+     * Publishers email address
+     */
     @Column(nullable = false, length = 24)
     private String email;
 
+    /**
+     * Publishers phone number
+     */
     @Column(nullable = false, length = 80)
     private String phone;
 
+    /**
+     * instances of books within our database
+     */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "publishers", cascade = CascadeType.PERSIST)
     private List<Books> books;
 

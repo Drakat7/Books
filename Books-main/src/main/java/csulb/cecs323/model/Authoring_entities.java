@@ -56,16 +56,28 @@ import java.util.Objects;
  * A person or group who author books
  */
 public class Authoring_entities {
+    /**
+     * new authoring entity's email address
+     */
     @Id
     @Column(nullable = false, length = 30)
     private String email;
 
+    /**
+     * what type of authoring_entity_type  this member is
+     */
     @Column(nullable = false, length = 31)
     private String authoring_entity_type;
 
+    /**
+     * the authoring entity name
+     */
     @Column(nullable = false, length = 80)
     private String name;
 
+    /**
+     * all the instances of books in our database mappedBy authoring_entities
+     */
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "authoring_entities", cascade = CascadeType.PERSIST)
     private List<Books> books;
 
@@ -147,7 +159,7 @@ public class Authoring_entities {
 
     /**
      * equals methods which checks if two entities have the same email
-     * @param o
+     * @param o         an authoring_entities
      * @return boolean
      */
     @Override
