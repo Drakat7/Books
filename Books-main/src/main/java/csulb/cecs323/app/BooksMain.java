@@ -138,7 +138,7 @@ public class BooksMain {
    } // End of createEntity member method
 
    /**
-    * returns a list of Publishers in our data for viewing or malipulation
+    * returns a list of Publishers in our data
     * @return List<Publishers>
     */
    public List<Publishers> getPublishers(){
@@ -237,6 +237,13 @@ public class BooksMain {
       }
    }
 
+   /**
+    * Checks to see if there is already an AuthoringEntity with this
+    * email and type
+    * @param email
+    * @param type
+    * @return Authoring_entities
+    */
    public Authoring_entities checkAuthoringEntitiesType(String email, String type){
       List<Authoring_entities> authoring_entities = this.entityManager.createNamedQuery("CheckAuthoringEntitiesType",
               Authoring_entities.class).setParameter(1, email).setParameter(2, type).getResultList();
@@ -606,7 +613,7 @@ public class BooksMain {
    /**
     * Adds a book to our existing database
     * making sure not to add the same book twice
-    * making sure the publiser exist
+    * making sure the publisher exist
     * making sure the authoring entity exist
     * @param books   A list of Books in our database
     * @param booksMain  An instance of the Entity manager
