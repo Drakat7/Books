@@ -527,7 +527,8 @@ public class BooksMain {
                in.nextLine();
                if(year_formed > 0){
                   yearFormedSuccess = true;
-               }else{
+               }
+               else{
                   System.out.println("That is not a valid year. Please try again.");
                }
             }
@@ -770,8 +771,8 @@ public class BooksMain {
            in.nextLine();;
            if(yearPublished > 0){
               yearPublishedSuccess = true;
-           }else
-           {
+           }
+           else{
               System.out.println("That is not a valid year. Please try again.");
            }
         }
@@ -786,11 +787,13 @@ public class BooksMain {
         authoringEntityName = in.nextLine();
         if (authoringEntityName.length() > 80){
            System.out.println("That name is too long. Please try again");
-        }else{
+        }
+        else{
            author = booksMain.checkAuthoringEntitiesEmail(authoringEntityName);
            if(authoring_entities.contains(author)){
               authoringEntityNameSuccess = true;
-           }else{
+           }
+           else{
               System.out.println("There is no Authoring Entity with that email. Please try again.");
            }
         }
@@ -806,7 +809,8 @@ public class BooksMain {
            publisher = booksMain.checkPublisherName(publisherName);
            if(publishers.contains(publisher)) {
               publisherNameSuccess = true;
-           }else{
+           }
+           else{
               System.out.println("There is no Publisher with that name. Please try again.");
            }
         }
@@ -816,10 +820,12 @@ public class BooksMain {
          if(!books.contains(booksMain.checkTitleAndPublisher(title, publisherName))){
             if(!books.contains(booksMain.checkTitleAndAuthor(title, authoringEntityName))){
                   books.add(new Books(ISBN, title, yearPublished, author, publisher));
-            }else{
+            }
+            else{
                System.out.println("There is already a book with that title and author. Please try again.");
             }
-         }else{
+         }
+         else{
             System.out.println("There is already a book with that title and publisher. Please try again.");
          }
       }
