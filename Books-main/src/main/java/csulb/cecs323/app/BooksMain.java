@@ -150,7 +150,7 @@ public class BooksMain {
    /**
     * Checks to see if a publisher name is already in our database
     * @param name The given name of the publisher
-    * @return a list of Publishers with the provided name, else null 
+    * @return  List<Publishers>
     */
    public Publishers checkPublisherName(String name){
       List<Publishers> publishers = this.entityManager.createNamedQuery("CheckPublishersName",
@@ -164,7 +164,7 @@ public class BooksMain {
 
    /**
     * Checks to see if a publisher email is already in our database
-    * @param email
+    * @param email Publisher's Electronic mail 
     * @return Publisher
     */
    public Publishers checkPublisherEmail(String email){
@@ -178,10 +178,9 @@ public class BooksMain {
    }
 
    /**
-    *
     * Checks to see if a publisher Phone number is already in our database
-    * @param phone
-    * @return Publisher
+    * @param phone Publisher's phone number
+    * @return Publishers
     */
    public Publishers checkPublisherPhone(String phone){
       List<Publishers> publishers = this.entityManager.createNamedQuery("CheckPublishersPhone",
@@ -213,18 +212,20 @@ public class BooksMain {
       return authoring_entities;
    }
 
+   /**
+    * Returns a list of Writing Groups already in our database
+    * @return List<Authoring_entities>
+    */
    public List<Authoring_entities> getWritingGroups(){
       List<Authoring_entities> authoring_entities = this.entityManager.createNamedQuery("ReturnWritingGroups",
               Authoring_entities.class).getResultList();
       return authoring_entities;
    }
 
-
-
    /**
     * Checks to see if there is already an AuthoringEntity with this
     * email
-    * @param email
+    * @param email Electronic mail 
     * @return Authoring_entities
     */
    public Authoring_entities checkAuthoringEntitiesEmail(String email){
@@ -237,6 +238,12 @@ public class BooksMain {
       }
    }
 
+   /**
+    * Checks Authoring entities type 
+    * @param email Electronic mail
+    * @param type Writing Group, Individual Author, Ad Hoc Team
+    * @return Authoring_entities
+    */
    public Authoring_entities checkAuthoringEntitiesType(String email, String type){
       List<Authoring_entities> authoring_entities = this.entityManager.createNamedQuery("CheckAuthoringEntitiesType",
               Authoring_entities.class).setParameter(1, email).setParameter(2, type).getResultList();
@@ -249,8 +256,8 @@ public class BooksMain {
 
    /**
     * Checks to see if there is already a book with the same ISBN in our database
-    * @param ISBN
-    * @return Books
+    * @param ISBN The International Standard Book Number 
+    * @return  Books
     */
    public Books checkISBN(String ISBN){
       List<Books> books = this.entityManager.createNamedQuery("CheckISBN",
@@ -272,6 +279,12 @@ public class BooksMain {
       return ad_hoc_teams_members;
    }
 
+   /**
+    * Returns Ad_hoc_team member's information
+    * @param individual_authors_email Author's electronic mail
+    * @param ad_hoc_teams_email Ad_hoc_team's electronic mail
+    * @return Ad_hoc_teams_member 
+    */
    public Ad_hoc_teams_member getAdHocTeamsMember(String individual_authors_email, String ad_hoc_teams_email){
       List<Ad_hoc_teams_member> ad_hoc_teams_members = this.entityManager.createNamedQuery("ReturnAdHocTeamsMember",
               Ad_hoc_teams_member.class).setParameter(1, individual_authors_email).setParameter(
