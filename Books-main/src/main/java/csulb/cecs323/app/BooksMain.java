@@ -307,6 +307,7 @@ public class BooksMain {
          System.out.println("(5) Delete a Book");
          System.out.println("(6) Update a Book");
          System.out.println("(7) List Primary Keys");
+         System.out.println("(8) Quit");
          try{
             input = in.nextInt();
             in.nextLine();
@@ -364,8 +365,13 @@ public class BooksMain {
             deleteBook(books, booksMain, in);
             break;
          case 6:
+            updateBook(authoring_entities, books, booksMain, in);
             break;
          case 7:
+            listPrimaryKeys(authoring_entities, publishers, books, booksMain, in);
+            break;
+         case 8:
+            System.exit(0);
             break;
          default:
             System.out.println("A critical error has occurred, shutting down.");
@@ -847,12 +853,100 @@ public class BooksMain {
       }
    }
 
-   public static void updateBook(){
+   public static void updateBook(List<Authoring_entities> authoring_entities, List<Books> books, BooksMain booksMain,
+                                 Scanner in){
+      String authoringEntityEmail = "";
+      boolean authoringEntityEmailSuccess = false;
+      boolean valid = false;
+      int input = -1;
+      int numBooks = books.size();
+      Authoring_entities author;
+
+      while(!valid){
+         if(numBooks > 0){
+            System.out.println("******************************************************************************************");
+            for(int i=0; i<numBooks; i++){
+               System.out.println("(" + (i+1) + ") " + books.get(i).toString());
+            }
+            System.out.println("******************************************************************************************");
+            System.out.println("Please select a book to update.");
+            try{
+               input = in.nextInt();
+               in.nextLine();
+               if(input > 0 && input <= numBooks){
+                  valid = true;
+                  while(!authoringEntityEmailSuccess){
+                     System.out.println("Please enter the email of the new authoring entity.");
+                     authoringEntityEmail = in.nextLine();
+                     if(authoringEntityEmail.length() > 30){
+                        System.out.println("That email is not long enough. Please try again.");
+                     }else{
+                        authoringEntityEmailSuccess = true;
+                     }
+                  }
+                  author = booksMain.checkAuthoringEntitiesEmail(authoringEntityEmail);
+                  if(authoring_entities.contains(author)){
+                     books.get(input-1).setAuthoring_entities(author);
+                  }else{
+                     System.out.println("There is no Authoring Entity with that email. Please try again.");
+                  }
+               }else{
+                  System.out.println("That is not a valid input. Please ty again.");
+               }
+            }catch (InputMismatchException e){
+               System.out.println("That is not a valid input. Please ty again.");
+               in.nextLine();
+            }
+         }else{
+            valid = true;
+            System.out.println("There are no Books to update.");
+         }
+      }
 
    }
 
-   public static void listPrimaryKeys(){
+   public static void listPrimaryKeys(List<Authoring_entities> authoring_entities, List<Publishers> publishers, List<Books> books, BooksMain booksMain, Scanner in){
+      boolean valid = false;
+      int input = 0;
+      List<Authoring_entities> writing_groups;
+      while(!valid){
+         System.out.println("(1) List Publishers Primary Keys");
+         System.out.println("(2) List Books Primary Keys");
+         System.out.println("(3) List Authoring Entities Primary Keys");
+         try{
+            input = in.nextInt();
+            in.nextLine();
+            if(input > 0 && input <= 3){
+               valid = true;
+            }else{
+               System.out.println("That is not a valid input. Please try again.");
+            }
+         }catch (InputMismatchException e){
+            System.out.println("That is not a valid input. Please try again.");
+            in.nextLine();
+         }
+      }
 
+      switch(input){
+         case 1:
+            for (int i=0; i<publishers.size(); i++){
+               System.out.println("(" + (i+1) + ") " + publishers.get(i).getName());
+            }
+            break;
+         case 2:
+            for(int j=0; j<books.size(); j++){
+               System.out.println("(" + (j+1) + ") " + books.get(j).getISBN() + ", " + books.get(j).getTitle());
+            }
+            break;
+         case 3:
+            for(int k=0; k<authoring_entities.size(); k++){
+               System.out.println("(" + (k+1) + ") " + authoring_entities.get(k).getEmail() + ", " + authoring_entities.get(k).getAuthoring_entity_type());
+            }
+            break;
+         default:
+            System.out.println("A critical error has occurred, shutting down.");
+            System.exit(1);
+      }
    }
 
 } // End of BooksMain class
