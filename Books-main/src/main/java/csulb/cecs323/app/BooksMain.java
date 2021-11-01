@@ -361,6 +361,7 @@ public class BooksMain {
             listInfo(authoring_entities, publishers, books, booksMain, in);
             break;
          case 5:
+            deleteBook(books, booksMain, in);
             break;
          case 6:
             break;
@@ -808,20 +809,49 @@ public class BooksMain {
       }
    } // end of listInfo()
 
-   public void deleteBook(List<Books> books, BooksMain booksMain, Scanner in){
+   public static void deleteBook(List<Books> books, BooksMain booksMain, Scanner in){
       String ISBN = "";
       String title = "";
       int year_published = -1;
       String authoring_entity_name = "";
       String publisher_name = "";
+      boolean valid = false;
+      int input = -1;
+      int numBooks = books.size();
+
+      while(!valid){
+         if(numBooks > 0){
+            System.out.println("******************************************************************************************");
+            for(int i=0; i<numBooks; i++){
+               System.out.println("(" + (i+1) + ") " + books.get(i).toString());
+            }
+            System.out.println("******************************************************************************************");
+            System.out.println("Please select a book to delete.");
+            try{
+               input = in.nextInt();
+               in.nextLine();
+               if(input > 0 && input <= numBooks){
+                  valid = true;
+                  books.remove(input-1);
+               }else{
+                  System.out.println("That is not a valid input. Please ty again.");
+               }
+            }catch (InputMismatchException e){
+               System.out.println("That is not a valid input. Please ty again.");
+               in.nextLine();
+            }
+         }else{
+            valid = true;
+            System.out.println("There are no Books to delete.");
+         }
+      }
+   }
+
+   public static void updateBook(){
 
    }
 
-   public void updateBook(){
-
-   }
-
-   public void listPrimaryKeys(){
+   public static void listPrimaryKeys(){
 
    }
 
